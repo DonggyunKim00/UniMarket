@@ -1,0 +1,86 @@
+# 🏪 UniMarket
+
+대학교 웹메일 인증 기반 물품 경매 사이트
+
+## 👬 팀
+
+김효성,김동균,전석남
+
+## 📖 기획
+
+- 노션 주소 (https://rapid-helicopter-251.notion.site/Prototype-c48202e2a8f54d0f962392e5da0402f6)
+
+## 🛠️ 주요 기능
+
+<details>
+  <summary><b>대학교 인증</b></summary>
+  <div markdown="1">
+    <ul>
+      <li>웹메일을 톨한 대학교 재학 인증 </li>
+      <li>https://univcert.com/  이용 예정</li>
+    </ul>
+  </div>
+</details>
+<details>
+  <summary><b>회원</b></summary>
+  <div markdown="1">
+    <ul>
+      <li>물품 등록 기능</li>
+      <li>경매 참여 기능</li>
+      <li>페이 기능</li>
+      <li>판매 품목, 구매 목록 조회 기능</li>
+    </ul>
+  </div>
+</details>
+<details>
+  <summary><b>물품</b></summary>
+  <div markdown="1">
+    <ul>
+      <li>경매 중, 경매 전 품목 리스트 조회 기능</li>
+      <li>물품 세부 조회 기능</li>
+      <li>실시간 경매 현황 조회 기능</li>
+    </ul>
+  </div>
+</details>
+<details>
+  <summary><b>경매</b></summary>
+  <div markdown="1">
+    <ul>
+      <li>입찰 등록, 입찰 취소 기능</li>
+      <li>입찰 등록시, 현재 본인 페이에 돈이 있는지 없는지 유효성 검사 기능</li>
+      <li>낙찰 시, 판매자와 구매자의 연결을 위해 판매자의 핸드폰번호 or 등록한 이메일 열람 기능</li>
+      <li>거래 완료 버튼 클릭 시, 낙찰 금액 판매자의 페이로 입금 기능</li>
+    </ul>
+  </div>
+</details>
+<details>
+  <summary><b>페이</b></summary>
+  <div markdown="1">
+    <ul>
+      <li>입금 기능</li>
+      <li>출금 기능</li>
+      <li>잔고 조회 기능</li>
+    </ul>
+  </div>
+</details>
+
+## 📚 기술스택
+
+- React
+- TypeScript
+- Zustand
+- React-Query
+- Supabase
+- Vercel
+
+## 📒 디자인
+
+https://www.figma.com/file/E0db3V0VTsbPCYT1Os1MIG/%EC%9C%A0%EB%8B%88%EB%A7%88%EC%BC%93?type=design&node-id=1-4&mode=design&t=N1nJfScXFwNPhtKN-0
+
+## 🧬 ERD 구조
+
+설계중..
+
+## 🏗️ 폴더 구조
+
+설계중..
