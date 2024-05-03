@@ -26,6 +26,7 @@
   <div markdown="1">
     <ul>
       <li>물품 등록 기능</li>
+
       <li>경매 참여 기능</li>
       <li>페이 기능</li>
       <li>판매 품목, 구매 목록 조회 기능</li>
@@ -82,5 +83,13 @@ https://www.figma.com/file/E0db3V0VTsbPCYT1Os1MIG/%EC%9C%A0%EB%8B%88%EB%A7%88%EC
 설계중..
 
 ## 🏗️ 폴더 구조
+<img width="160" alt="스크린샷 2024-05-03 오후 3 43 21" src="https://github.com/DonggyunKim00/UniMarket/assets/110156792/f31c4aec-f3ad-4805-bc03-dff2b34c2f7b">
 
-설계중..
+- public : 정적 파일(이미지,svg) 등을 모아둔 폴더
+- api : DB의 실질적인 데이터를 가져오는 폴더
+- constant : 모든 페이지에서 주요하게 쓰이는 색 등의 상수를 두는 폴더
+- components : 공통 컴포넌트 및 각 페이지 컴포넌트가 모이는 폴더
+- hooks : 공통으로 사용하는 custom hooks가 모이는 폴더
+- libs : 공통으로 사용되는 함수가 모이는 폴더
+- pages : 완성된 페이지 컴포넌트를 모아둔 폴더
+- store : 전역적으로 사용되는 zustand 로직이 모이는 폴더
