@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Layout from './components/Layout';
+import Layout from './components/common/Layout';
 import './global.css';
 import Router from './Router';
 import '@fontsource/roboto/300.css';
