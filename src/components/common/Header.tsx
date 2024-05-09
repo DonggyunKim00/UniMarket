@@ -23,7 +23,31 @@ const Header = () => {
         <img src="./UniLogo.png" width={90} height={90} alt="" />
       </LogoBox>
       <TypoBox>UNI-MARKET</TypoBox>
-      <MenuBox></MenuBox>
+      <MenuBox>
+        <Button
+          id="basic-button"
+          aria-controls={open ? 'basic-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onClick={handleClick}
+          sx={{ color: 'white' }}
+        >
+          <MenuIcon fontSize="large" />
+        </Button>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+        >
+          <MenuItem onClick={() => navigate('/')}>메인페이지</MenuItem>
+          <MenuItem onClick={() => navigate('/list')}>상품 게시판</MenuItem>
+          <MenuItem onClick={() => navigate('/myPage')}>마이페이지</MenuItem>
+        </Menu>
+      </MenuBox>
     </Wrapper>
   );
 };
