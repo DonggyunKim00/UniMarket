@@ -13,6 +13,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <Layout>
+    <div id="portal" />
     <Router />
   </Layout>,
 );
