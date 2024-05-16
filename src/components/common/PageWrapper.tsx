@@ -21,5 +21,6 @@ const Container = styled.div`
 const Inner = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0px 30px;
   height: 100%;
 `;

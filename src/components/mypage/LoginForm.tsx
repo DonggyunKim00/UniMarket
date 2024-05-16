@@ -71,4 +71,5 @@ export const Container = styled.div`
   background-color: #f1f1f1;
   border-radius: 20px;
   height: 200px;
+  margin: auto auto;
 `;
