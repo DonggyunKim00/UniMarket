@@ -3,19 +3,20 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Container } from '../../LoginForm';
 import useProcessIdxStore from '../../../../store/modal/processIdx';
+import { styled } from 'styled-components';
 
 const Register = () => {
   const { next } = useProcessIdxStore();
 
   return (
-    <Container>
+    <Form>
       <TextField
         id="outlined-basic"
         label="이메일"
         variant="outlined"
         size="small"
         sx={{
-          width: 220,
+          width: 280,
           color: 'white',
           bgcolor: 'white',
           borderRadius: '4px',
@@ -27,7 +28,19 @@ const Register = () => {
         variant="outlined"
         size="small"
         sx={{
-          width: 220,
+          width: 280,
+          color: 'white',
+          bgcolor: 'white',
+          borderRadius: '4px',
+        }}
+      />
+      <TextField
+        id="outlined-basic"
+        label="비밀번호 확인"
+        variant="outlined"
+        size="small"
+        sx={{
+          width: 280,
           color: 'white',
           bgcolor: 'white',
           borderRadius: '4px',
@@ -38,14 +51,21 @@ const Register = () => {
         color="success"
         size="small"
         sx={{
-          width: 150,
+          width: 230,
+          fontSize: 15,
         }}
         onClick={() => next()}
       >
         다음
       </Button>
-    </Container>
+    </Form>
   );
 };
 
 export default Register;
+
+const Form = styled(Container)`
+  gap: 30px;
+  width: 300px;
+  height: 300px;
+`;
