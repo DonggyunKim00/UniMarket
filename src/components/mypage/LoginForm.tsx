@@ -70,4 +70,5 @@ export const Container = styled.div`
   padding: 20px;
   background-color: #f1f1f1;
   border-radius: 20px;
+  height: 200px;
 `;

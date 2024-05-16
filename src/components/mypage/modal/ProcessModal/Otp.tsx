@@ -1,4 +1,5 @@
 import React from 'react';
+import { styled } from 'styled-components';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Container } from '../../LoginForm';
@@ -10,14 +11,14 @@ const Otp = () => {
   const { init } = useProcessIdxStore();
 
   return (
-    <Container>
+    <Form>
       <TextField
         id="outlined-basic"
         label="인증코드"
         variant="outlined"
         size="small"
         sx={{
-          width: 220,
+          width: 280,
           color: 'white',
           bgcolor: 'white',
           borderRadius: '4px',
@@ -28,7 +29,7 @@ const Otp = () => {
         color="success"
         size="small"
         sx={{
-          width: 150,
+          width: 230,
         }}
         onClick={() => {
           close();
@@ -37,8 +38,14 @@ const Otp = () => {
       >
         가입완료
       </Button>
-    </Container>
+    </Form>
   );
 };
 
 export default Otp;
+
+const Form = styled(Container)`
+  gap: 30px;
+  width: 300px;
+  height: 180px;
+`;
