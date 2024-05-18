@@ -1,3 +1,4 @@
+import { sleep } from '../libs/sleep';
 import { getClient } from '../libs/supabase';
 import { SignUpInfo } from '../store/signup/form';
 
@@ -65,6 +66,7 @@ export const login = async ({
 export const getAuthUser = async () => {
   const { supabase } = getClient();
 
+  await sleep({ ms: 750 });
   const { data } = await supabase.auth.getUser();
 
   return { data };

@@ -40,10 +40,10 @@ export const useSignUpMutate = () => {
 };
 
 export const useGetAuthUser = () => {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['user'],
     queryFn: () => getAuthUser(),
   });
 
-  return { data };
+  return { data, isLoading };
 };
