@@ -7,10 +7,14 @@ const ProcessModal = () => {
   const { idx } = useProcessIdxStore();
 
   switch (idx) {
+    case 0:
+      return <></>;
     case 1:
+      return <Register />;
+    case 2:
       return <Otp />;
     default:
-      return <Register />;
+      return null;
   }
 };
 
