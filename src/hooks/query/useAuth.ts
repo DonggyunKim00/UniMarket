@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { getAuthUser, insertUserData, login, signup } from '../../api/mypage';
+import { getUser, insertUserData, login, signup } from '../../api/mypage';
 import { SignUpInfo } from '../../store/signup/form';
 
 export const useLogin = (loginForm: { email: string; password: string }) => {
@@ -42,7 +42,7 @@ export const useSignUpMutate = () => {
 export const useGetAuthUser = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['user'],
-    queryFn: () => getAuthUser(),
+    queryFn: () => getUser(),
   });
 
   return { data, isLoading };

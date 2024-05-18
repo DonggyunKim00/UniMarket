@@ -63,11 +63,17 @@ export const login = async ({
   });
 };
 
-export const getAuthUser = async () => {
+export const getUser = async (): Promise<{ user: UserEntity }> => {
   const { supabase } = getClient();
 
   await sleep({ ms: 750 });
   const { data } = await supabase.auth.getUser();
 
-  return { data };
+  const { data: user, error } = await supabase
+    .from('user')
+    .select('*')
+    .eq('id', data.user?.id)
+    .single();
+
+  return { user };
 };
