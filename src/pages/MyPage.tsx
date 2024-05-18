@@ -12,15 +12,15 @@ import useModalStateStore from '../store/modal/modalState';
 const MyPage = () => {
   const { modalState } = useModalStateStore();
   const { data, isLoading } = useGetAuthUser();
-  console.log(data);
 
+  console.log(data);
   return (
     <PageWrapper>
       {isLoading ? (
         <LoadingSpinner width={50} height={50} $borderWidth={4} />
       ) : data ? (
         <>
-          <Pay />
+          <Pay money={data.user.money} />
           <Deal />
         </>
       ) : (
