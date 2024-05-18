@@ -4,15 +4,12 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import useModalStateStore from '../../store/modal/modalState';
 import { useLoginForm } from '../../hooks/useInput';
-import { useGetAuthUser, useLogin } from '../../hooks/query/useAuth';
+import { useLogin } from '../../hooks/query/useAuth';
 
 const LoginForm = () => {
   const { open } = useModalStateStore();
   const { userForm, setUserForm } = useLoginForm();
   const { mutate: loginMutate } = useLogin(userForm);
-
-  const { data } = useGetAuthUser();
-  console.log(data);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserForm({
