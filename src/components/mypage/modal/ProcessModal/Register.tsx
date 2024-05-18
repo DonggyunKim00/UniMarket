@@ -2,19 +2,22 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Container } from '../../LoginForm';
-import useProcessIdxStore from '../../../../store/modal/processIdx';
 import { styled } from 'styled-components';
+import useSignUpForm from '../../../../store/signup/form';
+import { useSignUpLogic } from '../../../../hooks/query/useUnicert';
 
 const Register = () => {
-  const { next } = useProcessIdxStore();
+  const { setEmail, setPassword, setPhoneNumber } = useSignUpForm();
+  const { mutate: signUpLogicMutate } = useSignUpLogic();
 
   return (
     <Form>
       <TextField
         id="outlined-basic"
-        label="이메일"
+        label="이메일: ex) ~~~@학교도메인.ac.kr"
         variant="outlined"
         size="small"
+        onChange={(e) => setEmail(e.target.value)}
         sx={{
           width: 280,
           color: 'white',
@@ -25,8 +28,11 @@ const Register = () => {
       <TextField
         id="outlined-basic"
         label="비밀번호"
+        name="password"
+        type="password"
         variant="outlined"
         size="small"
+        onChange={(e) => setPassword(e.target.value)}
         sx={{
           width: 280,
           color: 'white',
@@ -36,9 +42,10 @@ const Register = () => {
       />
       <TextField
         id="outlined-basic"
-        label="비밀번호 확인"
+        label="연락처"
         variant="outlined"
         size="small"
+        onChange={(e) => setPhoneNumber(e.target.value)}
         sx={{
           width: 280,
           color: 'white',
@@ -50,11 +57,15 @@ const Register = () => {
         variant="contained"
         color="success"
         size="small"
+        type="submit"
         sx={{
           width: 230,
           fontSize: 15,
         }}
-        onClick={() => next()}
+        onClick={(e) => {
+          e.preventDefault();
+          signUpLogicMutate();
+        }}
       >
         다음
       </Button>
@@ -67,5 +78,5 @@ export default Register;
 const Form = styled(Container)`
   gap: 30px;
   width: 300px;
-  height: 300px;
+  height: 350px;
 `;

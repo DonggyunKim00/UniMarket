@@ -1,6 +1,5 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Container } from '../../LoginForm';
 import useModalStateStore from '../../../../store/modal/modalState';
@@ -12,18 +11,7 @@ const Otp = () => {
 
   return (
     <Form>
-      <TextField
-        id="outlined-basic"
-        label="인증코드"
-        variant="outlined"
-        size="small"
-        sx={{
-          width: 280,
-          color: 'white',
-          bgcolor: 'white',
-          borderRadius: '4px',
-        }}
-      />
+      <b>이메일로 보낸 링크를 클릭해 주세요</b>
       <Button
         variant="contained"
         color="success"
