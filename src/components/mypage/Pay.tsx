@@ -20,7 +20,7 @@ const Pay = ({ money }: { money: number }) => {
         <img src="./UniLogo.png" width={20} height={20} alt="" />
         UniPay
       </Header>
-      <Content>{divideNum(',', money)} 원</Content>
+      <Content>{divideNum(money)} 원</Content>
       <Button
         variant="contained"
         sx={{ fontSize: '16px', fontWeight: 700 }}
