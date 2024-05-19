@@ -57,10 +57,11 @@ export const login = async ({
 }) => {
   const { supabase } = getClient();
 
-  return await supabase.auth.signInWithPassword({
+  const { data, error } = await supabase.auth.signInWithPassword({
     email: email,
     password: password,
   });
+  return { data, error };
 };
 
 export const getUser = async (): Promise<{ user: UserEntity }> => {

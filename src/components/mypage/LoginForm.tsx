@@ -38,6 +38,7 @@ const LoginForm = () => {
         id="outlined-basic"
         label="비밀번호"
         name="password"
+        type="password"
         variant="outlined"
         size="small"
         onChange={handleChange}
