@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 import { getUser, insertUserData, login, signup } from '../../api/mypage';
 import { SignUpInfo } from '../../store/signup/form';
 
@@ -7,9 +8,9 @@ export const useLogin = (loginForm: { email: string; password: string }) => {
     mutationFn: () => {
       return login(loginForm);
     },
-    onSuccess: (data: any) => {
+    onSuccess: () => {
       alert('로그인 되었습니다.');
-      console.log(data);
+      window.location.reload();
     },
   });
 
@@ -40,10 +41,31 @@ export const useSignUpMutate = () => {
 };
 
 export const useGetAuthUser = () => {
+  const { jwt } = useGetToken();
+  console.log(jwt);
   const { data, isLoading } = useQuery({
     queryKey: ['user'],
     queryFn: () => getUser(),
+    enabled: !!jwt.access_token,
   });
 
   return { data, isLoading };
+};
+
+interface Jwt {
+  access_token: string;
+  refresh_token: string;
+}
+export const useGetToken = () => {
+  const [jwt, setJwt] = useState<Jwt>({ access_token: '', refresh_token: '' });
+  useEffect(() => {
+    const storage =
+      localStorage.getItem('sb-ydagnjvmbsdbjvmcpeaf-auth-token') || '';
+    if (storage) {
+      const { access_token, refresh_token } = JSON.parse(storage);
+      setJwt({ access_token, refresh_token });
+    }
+  }, []);
+
+  return { jwt };
 };
