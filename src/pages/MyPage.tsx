@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import PageWrapper from '../components/common/PageWrapper';
 import Deal from '../components/mypage/Deal';
@@ -13,12 +12,11 @@ const MyPage = () => {
   const { modalState } = useModalStateStore();
   const { data, isLoading } = useGetAuthUser();
 
-  console.log(data);
   return (
     <PageWrapper>
       {isLoading ? (
         <LoadingSpinner width={50} height={50} $borderWidth={4} />
-      ) : data ? (
+      ) : data?.user ? (
         <>
           <Pay money={data.user.money} />
           <Deal />
