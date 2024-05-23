@@ -1,6 +1,7 @@
 import { sleep } from '../libs/sleep';
 import { getClient } from '../libs/supabase';
 import { SignUpInfo } from '../store/signup/form';
+import { UserEntity, AuctionEntity } from '../constant/entity';
 
 export const signup = async ({
   email,
@@ -25,13 +26,6 @@ export const signup = async ({
   return { data, error };
 };
 
-interface UserEntity {
-  id: string;
-  email: string;
-  phone_number: string;
-  univ_name: string;
-  money: number;
-}
 export const insertUserData = async ({
   id,
   email,
@@ -77,4 +71,18 @@ export const getUser = async (): Promise<{ user: UserEntity }> => {
     .single();
 
   return { user };
+};
+
+export const getMyPost = async (): Promise<{
+  mypost: AuctionEntity[] | null;
+}> => {
+  const { supabase } = getClient();
+
+  const { data: userData } = await supabase.auth.getUser();
+  const { data: mypost, error } = await supabase
+    .from('auction')
+    .select('*')
+    .eq('user_id', userData.user?.id);
+
+  return { mypost };
 };
