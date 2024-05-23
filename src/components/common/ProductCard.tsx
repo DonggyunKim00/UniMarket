@@ -1,15 +1,18 @@
 import React from 'react';
 import { css, styled } from 'styled-components';
 
-const ProductCard = () => {
+const ProductCard = ({ ...props }) => {
+  console.log(props);
+  const { id, title, photo, end_date, current_price, isSuccess } = props;
+
+  console.log(!!photo);
   return (
     <Container>
-      <Image />
+      {photo ? <img src={photo} /> : <Image>None Image</Image>}
       <Content>
-        <Title>게시글 제목</Title>
-        <StartDate>경매 시작일 : </StartDate>
-        <EndDate>경매 마감일 : </EndDate>
-        <CurrentPrice>현재 입찰가 : </CurrentPrice>
+        <Title>{title}</Title>
+        <EndDate>낙찰 예정 시간 : {end_date || '미정'}</EndDate>
+        <CurrentPrice>현재 입찰가 : {current_price || 0}</CurrentPrice>
       </Content>
     </Container>
   );
@@ -25,11 +28,16 @@ const Container = styled.div`
 `;
 
 const Image = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 110px;
   height: 120px;
   background-color: darkcyan;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  color: white;
+  font-weight: 700;
 `;
 const Content = styled.div`
   padding: 5px 10px;
@@ -48,9 +56,6 @@ const spanStyle = css`
 const Title = styled.span`
   ${spanStyle}
   font-weight: 600;
-`;
-const StartDate = styled.span`
-  ${spanStyle}
 `;
 const EndDate = styled.span`
   ${spanStyle}
