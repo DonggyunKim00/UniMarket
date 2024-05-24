@@ -2,8 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import PreviewList from '../components/common/PreviewList';
 import PageWrapper from '../components/common/PageWrapper';
+import { useMain } from '../hooks/query/useMain';
 
 const Home = () => {
+  const { isLoading, error, data } = useMain(true);
+
+  const { isLoading: hww, error: hwwerror, data: hwwData } = useMain(false);
+
+  console.log('트루 데이터', data);
+  console.log('false data', hwwData);
+
   return (
     <PageWrapper>
       <Wrapper>
