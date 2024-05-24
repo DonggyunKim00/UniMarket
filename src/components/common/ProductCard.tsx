@@ -2,10 +2,8 @@ import React from 'react';
 import { css, styled } from 'styled-components';
 
 const ProductCard = ({ ...props }) => {
-  console.log(props);
-  const { id, title, photo, end_date, current_price, isSuccess } = props;
+  const { title, photo, end_date, current_price } = props;
 
-  console.log(!!photo);
   return (
     <Container>
       {photo ? <img src={photo} /> : <Image>None Image</Image>}
