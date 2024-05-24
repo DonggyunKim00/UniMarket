@@ -7,7 +7,7 @@
  * money : 유니페이 잔액
  */
 export interface UserEntity {
-  id: string;
+  id?: string;
   email: string;
   phone_number: string;
   univ_name: string;
@@ -23,7 +23,7 @@ export interface UserEntity {
  * winner_id : 낙찰자 ID
  */
 export interface AuctionEntity {
-  id: number;
+  id?: number;
   bid_date: Date;
   end_price: number;
   product_id: number;
@@ -39,7 +39,7 @@ export interface AuctionEntity {
  * auction_id : 경매 ID
  */
 export interface AuctionHistoryEntity {
-  id: number;
+  id?: number;
   bid_amount: number;
   bid_date: Date;
   bidder_id: string;
@@ -56,7 +56,7 @@ export interface AuctionHistoryEntity {
  * owner_id : 소유자 ID
  */
 export interface ProductEntity {
-  id: number;
+  id?: number;
   title: string;
   describe: string;
   photo: null | string;

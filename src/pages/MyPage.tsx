@@ -6,7 +6,7 @@ import LoginForm from '../components/mypage/LoginForm';
 import Modal from '../components/mypage/modal';
 import Pay from '../components/mypage/Pay';
 import { useGetAuthUser } from '../hooks/query/useAuth';
-import { useGetMyPost } from '../hooks/query/useItem';
+import { useGetMyPost } from '../hooks/query/useProduct';
 import useModalStateStore from '../store/modal/modalState';
 import { styled } from 'styled-components';
 

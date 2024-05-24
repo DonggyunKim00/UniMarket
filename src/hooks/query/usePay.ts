@@ -1,11 +1,6 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { updateAuctionBidDate } from '../../api/auction';
-import {
-  getAuctionHistory,
-  insertAuctionHistory,
-  InsertAuctionHistoryData,
-} from '../../api/auctionHistory';
+
 import { updateUserPay } from '../../api/pay';
 
 export const usePromptPay = () => {
@@ -34,39 +29,6 @@ export const useUpdatePay = (currentMoney: number, inputMoney: number) => {
     onSuccess: () => {
       alert(`${inputMoney}원 충전되었습니다.`);
     },
-  });
-
-  return { mutate };
-};
-
-export const useGetAuctionHistory = (product_id: number) => {
-  const { data, isLoading } = useQuery({
-    queryKey: ['auction_history', product_id],
-    queryFn: () => getAuctionHistory(),
-  });
-
-  return { data, isLoading };
-};
-
-export const useInsertAuctionHistory = (product_id: number) => {
-  const { mutate } = useMutation({
-    mutationKey: ['auction_history', product_id],
-    mutationFn: ({
-      bid_amount,
-      bid_date,
-      bidder_id,
-      auction_id,
-    }: InsertAuctionHistoryData) =>
-      insertAuctionHistory({ bid_amount, bid_date, bidder_id, auction_id }),
-  });
-
-  return { mutate };
-};
-
-export const useUpdateAuctionDate = (product_id: number) => {
-  const { mutate } = useMutation({
-    mutationKey: ['auction', product_id],
-    mutationFn: (new_date: Date) => updateAuctionBidDate(product_id, new_date),
   });
 
   return { mutate };
