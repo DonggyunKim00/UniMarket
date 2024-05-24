@@ -1,5 +1,5 @@
 import { getClient } from '../libs/supabase';
-import { AuctionEntity } from '../constant/entity';
+import { AuctionEntity, ProductEntity } from '../constant/entity';
 
 export const getMyProduct = async (): Promise<{
   mypost: AuctionEntity[] | null;
@@ -22,6 +22,22 @@ export const getOneProduct = async (id: number) => {
     .from('product')
     .select('*')
     .eq('id', id);
+
+  return { data };
+};
+
+export const createProduct = async ({
+  title,
+  describe,
+  photo,
+  owner_id,
+  min_price,
+  created_at,
+}: ProductEntity) => {
+  const { supabase } = getClient();
+  const { data, error } = await supabase
+    .from('auction')
+    .insert([{ title, describe, photo, owner_id, min_price, created_at }]);
 
   return { data };
 };

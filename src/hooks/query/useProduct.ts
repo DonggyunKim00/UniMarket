@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createNewAuction } from '../../api/auction';
+import { createProduct } from '../../api/product';
 import { getMyProduct, getOneProduct } from '../../api/product';
 import { ProductEntity } from '../../constant/entity';
 import { getNow } from '../../libs/date';
@@ -23,7 +23,6 @@ export const useGetOneProduct = (product_id: number) => {
 };
 
 export const useCreateProduct = () => {
-  const { date } = getNow();
   const { mutate } = useMutation({
     mutationKey: ['productList'],
     mutationFn: ({
@@ -32,14 +31,15 @@ export const useCreateProduct = () => {
       photo,
       owner_id,
       min_price,
+      created_at,
     }: ProductEntity) =>
-      createNewAuction({
+      createProduct({
         title,
         describe,
         photo,
         owner_id,
         min_price,
-        created_at: date,
+        created_at,
       }),
   });
 

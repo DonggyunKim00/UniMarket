@@ -1,5 +1,4 @@
-import { ProductEntity } from '../constant/entity';
-import { getNow } from '../libs/date';
+import { AuctionEntity } from '../constant/entity';
 import { getClient } from '../libs/supabase';
 
 export const getAuctionList = async () => {
@@ -19,18 +18,16 @@ export const getOneAuction = async (product_id: number) => {
   return { data };
 };
 
-export const createNewAuction = async ({
-  title,
-  describe,
-  photo,
-  owner_id,
-  min_price,
-  created_at,
-}: ProductEntity) => {
+export const createAuction = async ({
+  bid_date,
+  end_price,
+  product_id,
+  winner_id,
+}: AuctionEntity) => {
   const { supabase } = getClient();
   const { data, error } = await supabase
     .from('auction')
-    .insert([{ title, describe, photo, owner_id, min_price, created_at }]);
+    .insert({ bid_date, end_price, product_id, winner_id });
 
   return { data };
 };
