@@ -36,7 +36,7 @@ export const createProduct = async ({
 }: ProductEntity) => {
   const { supabase } = getClient();
   const { data, error } = await supabase
-    .from('auction')
+    .from('product')
     .insert([{ title, describe, photo, owner_id, min_price, created_at }]);
 
   return { data };

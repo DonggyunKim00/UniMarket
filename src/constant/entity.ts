@@ -24,10 +24,10 @@ export interface UserEntity {
  */
 export interface AuctionEntity {
   id?: number;
-  bid_date: Date;
-  end_price: number;
+  bid_date: Date | null;
+  end_price: number | null;
   product_id: number;
-  winner_id: string;
+  winner_id: string | null;
 }
 
 /**
