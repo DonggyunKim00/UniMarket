@@ -4,7 +4,7 @@
 
 ## 👬 팀
 
-김효성,김동균,전석남
+김효성,김동균
 
 ## 📖 기획
 
@@ -79,8 +79,8 @@
 https://www.figma.com/file/E0db3V0VTsbPCYT1Os1MIG/%EC%9C%A0%EB%8B%88%EB%A7%88%EC%BC%93?type=design&node-id=1-4&mode=design&t=N1nJfScXFwNPhtKN-0
 
 ## 🧬 ERD 구조
+<img width="770" alt="스크린샷 2024-05-27 오후 4 08 12" src="https://github.com/potato-club/UniMarket/assets/110156792/d273d9a7-cfef-405c-b31f-840eb9f1c5a7">
 
-설계중..
 
 ## 🏗️ 폴더 구조
 <img width="160" alt="스크린샷 2024-05-03 오후 3 43 21" src="https://github.com/DonggyunKim00/UniMarket/assets/110156792/f31c4aec-f3ad-4805-bc03-dff2b34c2f7b">
