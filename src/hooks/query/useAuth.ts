@@ -5,12 +5,14 @@ import { SignUpInfo } from '../../store/signup/form';
 
 export const useLogin = (loginForm: { email: string; password: string }) => {
   const { mutate } = useMutation({
-    mutationFn: () => {
-      return login(loginForm);
-    },
-    onSuccess: () => {
-      alert('로그인 되었습니다.');
-      window.location.reload();
+    mutationFn: () => login(loginForm),
+    onSuccess: (data) => {
+      if (data.error) {
+        alert('로그인에 실패했습니다. 아이디, 비밀번호를 다시 입력해주세요');
+      } else {
+        alert('로그인 되었습니다.');
+        window.location.reload();
+      }
     },
   });
 

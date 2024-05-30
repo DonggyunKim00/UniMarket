@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import MyPage from './pages/MyPage';
 import List from './pages/List';
 import Register from './pages/Register';
+import NotFound from './pages/NotFound';
 
 function Router() {
   return (
@@ -15,6 +16,7 @@ function Router() {
         <Route path="/detail" element={<Detail />} />
         <Route path="/register" element={<Register />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/404" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

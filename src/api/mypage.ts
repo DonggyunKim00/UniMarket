@@ -1,6 +1,7 @@
 import { sleep } from '../libs/sleep';
 import { getClient } from '../libs/supabase';
 import { SignUpInfo } from '../store/signup/form';
+import { UserEntity } from '../constant/entity';
 
 export const signup = async ({
   email,
@@ -25,13 +26,6 @@ export const signup = async ({
   return { data, error };
 };
 
-interface UserEntity {
-  id: string;
-  email: string;
-  phone_number: string;
-  univ_name: string;
-  money: number;
-}
 export const insertUserData = async ({
   id,
   email,
@@ -57,23 +51,31 @@ export const login = async ({
 }) => {
   const { supabase } = getClient();
 
-  return await supabase.auth.signInWithPassword({
+  const { data, error } = await supabase.auth.signInWithPassword({
     email: email,
     password: password,
   });
+  return { data, error };
 };
 
 export const getUser = async (): Promise<{ user: UserEntity }> => {
+  const { supabase } = getClient();
+  const { uuid } = await getuuid();
+  const { data: user, error } = await supabase
+    .from('user')
+    .select('*')
+    .eq('id', uuid)
+    .single();
+
+  return { user };
+};
+
+export const getuuid = async () => {
   const { supabase } = getClient();
 
   await sleep({ ms: 750 });
   const { data } = await supabase.auth.getUser();
 
-  const { data: user, error } = await supabase
-    .from('user')
-    .select('*')
-    .eq('id', data.user?.id)
-    .single();
-
-  return { user };
+  const uuid = data.user?.id;
+  return { uuid };
 };
