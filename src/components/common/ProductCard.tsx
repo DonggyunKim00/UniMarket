@@ -1,16 +1,26 @@
 import React from 'react';
 import { css, styled } from 'styled-components';
+import { formattingDate, getNow } from '../../libs/date';
 
 const ProductCard = ({ ...props }) => {
-  const { title, photo, end_date, current_price } = props;
+  const { id, title, photo, end_date, current_bid } = props;
+  const { date } = getNow();
 
   return (
     <Container>
+      {end_date < date ? <></> : <EndCard>낙찰</EndCard>}
+
       {photo ? <img src={photo} /> : <Image>None Image</Image>}
       <Content>
         <Title>{title}</Title>
-        <EndDate>낙찰 예정 시간 : {end_date || '미정'}</EndDate>
-        <CurrentPrice>현재 입찰가 : {current_price || 0}</CurrentPrice>
+        <EndDate>
+          <b>낙찰 예정 시간 </b>
+          <span>{end_date ? formattingDate(end_date) : '미정'}</span>
+        </EndDate>
+        <CurrentPrice>
+          <b>현재 입찰가</b>
+          <span>{current_bid || 'x'}</span>
+        </CurrentPrice>
       </Content>
     </Container>
   );
@@ -22,7 +32,21 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 110px;
+  height: 230px;
   border-radius: 5px;
+`;
+const EndCard = styled.div`
+  width: 110px;
+  height: 221px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 10;
+  background-color: rgba(1, 1, 1, 0.5);
+  color: red;
+  font-weight: 700;
+  font-size: 20px;
 `;
 
 const Image = styled.div`
@@ -38,7 +62,7 @@ const Image = styled.div`
   font-weight: 700;
 `;
 const Content = styled.div`
-  padding: 5px 10px;
+  padding: 5px 6px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -48,8 +72,13 @@ const Content = styled.div`
   border-bottom-right-radius: 5px;
 `;
 const spanStyle = css`
-  font-size: 10px;
+  font-size: 9px;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 27px;
 `;
 const Title = styled.span`
   ${spanStyle}

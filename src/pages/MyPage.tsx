@@ -6,7 +6,7 @@ import LoginForm from '../components/mypage/LoginForm';
 import Modal from '../components/mypage/modal';
 import Pay from '../components/mypage/Pay';
 import { useGetAuthUser } from '../hooks/query/useAuth';
-import { useGetMyPost } from '../hooks/query/useProduct';
+import { useGetMyDeal, useGetMyPost } from '../hooks/query/useProduct';
 import useModalStateStore from '../store/modal/modalState';
 import { styled } from 'styled-components';
 
@@ -14,6 +14,7 @@ const MyPage = () => {
   const { modalState } = useModalStateStore();
   const { data, isLoading } = useGetAuthUser();
   const { data: mypost } = useGetMyPost();
+  const { data: mydeal } = useGetMyDeal();
 
   return (
     <PageWrapper>
@@ -23,7 +24,7 @@ const MyPage = () => {
         <Inner>
           <Pay money={data.user.money} />
           <ProductBox text="나의 게시물" cardInfo={mypost?.mypost} />
-          <ProductBox text="나의 입찰 & 낙찰" cardInfo={mypost?.mypost} />
+          <ProductBox text="나의 입찰 & 낙찰" cardInfo={mydeal?.mydeal} />
         </Inner>
       ) : (
         <>

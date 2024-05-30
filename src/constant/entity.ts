@@ -28,6 +28,7 @@ export interface AuctionEntity {
   end_price: number | null;
   product_id: number;
   winner_id: string | null;
+  current_bid: number | null;
 }
 
 /**
