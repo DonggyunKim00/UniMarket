@@ -1,19 +1,6 @@
 import { getClient } from '../libs/supabase';
 import { AuctionEntity, ProductEntity } from '../constant/entity';
-
-export const getMyProduct = async (): Promise<{
-  mypost: AuctionEntity[] | null;
-}> => {
-  const { supabase } = getClient();
-
-  const { data: userData } = await supabase.auth.getUser();
-  const { data: mypost, error } = await supabase
-    .from('product')
-    .select('*')
-    .eq('owner_id', userData.user?.id);
-
-  return { mypost };
-};
+import { getuuid } from './mypage';
 
 export const getOneProduct = async (id: number) => {
   const { supabase } = getClient();
@@ -40,4 +27,27 @@ export const createProduct = async ({
     .insert([{ title, describe, photo, owner_id, min_price, created_at }]);
 
   return { data };
+};
+
+export const getMyProduct = async () => {
+  const { supabase } = getClient();
+
+  const { uuid } = await getuuid();
+  const { data: mypost, error } = await supabase
+    .from('product_card_view')
+    .select('*')
+    .eq('owner_id', uuid);
+
+  return { mypost };
+};
+
+export const getMyDealProduct = async () => {
+  const { supabase } = getClient();
+  const { uuid } = await getuuid();
+  const { data: mydeal, error } = await supabase
+    .from('product_card_view')
+    .select('*')
+    .eq('bidder_id', uuid);
+
+  return { mydeal };
 };

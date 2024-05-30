@@ -1,13 +1,20 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createProduct } from '../../api/product';
+import { createProduct, getMyDealProduct } from '../../api/product';
 import { getMyProduct, getOneProduct } from '../../api/product';
 import { ProductEntity } from '../../constant/entity';
-import { getNow } from '../../libs/date';
 
 export const useGetMyPost = () => {
   const { data, isLoading } = useQuery({
-    queryKey: ['mypost'],
+    queryKey: ['mypost-list'],
     queryFn: () => getMyProduct(),
+  });
+
+  return { data, isLoading };
+};
+export const useGetMyDeal = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ['mydeal-list'],
+    queryFn: () => getMyDealProduct(),
   });
 
   return { data, isLoading };
