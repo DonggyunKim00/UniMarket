@@ -6,11 +6,11 @@ import { usePromptPay, useUpdatePay } from '../../hooks/query/usePay';
 
 const Pay = ({ money }: { money: number }) => {
   const { inputMoney, setMoneyPrompt } = usePromptPay();
-  const { mutate } = useUpdatePay(money, inputMoney);
+  const { payChargeMutate } = useUpdatePay(inputMoney);
 
   useEffect(() => {
     if (inputMoney) {
-      mutate();
+      payChargeMutate();
     }
   }, [inputMoney]);
 

@@ -1,15 +1,14 @@
+import { ENUM_PAY_TYPE } from '../constant/enum';
 import { getClient } from '../libs/supabase';
+import { getuuid } from './mypage';
 
 export const updateUserPay = async (
-  currentMoney: number,
+  type: ENUM_PAY_TYPE,
   inputMoney: number,
 ) => {
   const { supabase } = getClient();
-
-  const { data } = await supabase.auth.getUser();
-
+  const { uuid } = await getuuid();
   const { error } = await supabase
-    .from('user')
-    .update({ money: currentMoney + inputMoney })
-    .eq('id', data.user?.id);
+    .from('pay_history')
+    .insert([{ user_id: uuid, amount: inputMoney, pay_type: type }]);
 };
