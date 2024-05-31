@@ -1,5 +1,6 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
+
 import { updateUserPay } from '../../api/pay';
 
 export const usePromptPay = () => {
@@ -20,14 +21,12 @@ export const usePromptPay = () => {
 };
 
 export const useUpdatePay = (currentMoney: number, inputMoney: number) => {
-  const queryClient = useQueryClient();
-
   const { mutate } = useMutation({
+    mutationKey: ['user'],
     mutationFn: () => {
       return updateUserPay(currentMoney, inputMoney);
     },
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ['user'] });
       alert(`${inputMoney}원 충전되었습니다.`);
     },
   });
