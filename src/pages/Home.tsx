@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import PreviewList from '../components/common/PreviewList';
 import PageWrapper from '../components/common/PageWrapper';
-import { useGetNotNull, useGetNull } from '../hooks/query/useMain';
+import { useGetNotNull, useGetNull } from '../hooks/query/usePreview';
 const Home = () => {
   const { isLoading, error, data } = useGetNotNull();
 
