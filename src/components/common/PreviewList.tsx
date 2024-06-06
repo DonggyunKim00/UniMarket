@@ -21,10 +21,7 @@ const PreviewList = ({ data, state }: any) => {
       </MenuLine>
       <ListBox>
         {data?.auction.map((item: any, id: number) => (
-          <ItemBox
-            key={item.prouduct_id}
-            onClick={() => itemClick(item.product_id)}
-          >
+          <ItemBox key={id} onClick={() => itemClick(item.product_id)}>
             <img
               src={item.image || './first.png'}
               alt=""
