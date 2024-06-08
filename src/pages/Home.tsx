@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import PreviewList from '../components/common/PreviewList';
+import PreviewList from '../components/homePage/PreviewList';
 import PageWrapper from '../components/common/PageWrapper';
 import { useGetNotNull, useGetNull } from '../hooks/query/usePreview';
 const Home = () => {
