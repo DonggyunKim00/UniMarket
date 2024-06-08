@@ -6,4 +6,5 @@ export const useGetDetail = (id: number) => {
     queryKey: ['detailInfo'],
     queryFn: () => getDetailInfo(id),
   });
+  return { isLoading, error, data };
 };
