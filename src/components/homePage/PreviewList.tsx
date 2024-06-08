@@ -84,7 +84,7 @@ const ListBox = styled.div`
 `;
 const ItemBox = styled.div`
   width: 90%;
-  background-color: aliceblue;
+  background-color: #e9eef3;
   border-radius: 20px;
   padding: 10px;
   display: flex;
