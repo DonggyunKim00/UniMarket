@@ -1,82 +1,122 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import UndoIcon from '@mui/icons-material/Undo';
 import PageWrapper from '../components/common/PageWrapper';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useGetDetail } from '../hooks/query/useGetDetail';
 import LoadingSpinner from '../components/common/LoadingSpinner';
-import { formattingDate } from '../libs/date';
+import { formattingDate, getNow } from '../libs/date';
+import { useGetAuthUser } from '../hooks/query/useAuth';
 
 const Detail = () => {
   const [searchParams] = useSearchParams();
-  const idString = searchParams.get('id');
-  const id = idString ? parseInt(idString) : null;
-
-  const { data, isLoading } = useGetDetail(id as number);
-
   const navigate = useNavigate();
 
-  const undoClick = () => {
-    navigate(-1);
-  };
+  const idString = searchParams.get('id');
+  const id = idString ? parseInt(idString) : null;
+  const { data, isLoading } = useGetDetail(id as number);
+  const { data: auth } = useGetAuthUser();
 
   const item = data?.product[0];
+
   useEffect(() => {
     if (!isLoading && !item) {
       navigate('/404');
     }
   }, [isLoading]);
+
+  const [closeShow, setCloseShow] = useState<boolean>(false);
+  useEffect(() => {
+    if (data && auth) {
+      const { date } = getNow();
+      if (item.end_date) {
+        if (Date.parse(item.end_date) < Date.parse(date.toISOString()))
+          setCloseShow(true);
+        else setCloseShow(false);
+      } else setCloseShow(false);
+    }
+  }, [data, auth]);
+
   return (
-    <PageWrapper>
-      {isLoading ? (
-        <LoadingSpinner width={50} height={50} $borderWidth={4} />
-      ) : (
-        <Wrapper>
-          <Header>
-            <div
-              style={{
-                position: 'absolute',
-                left: 0,
-              }}
-            >
-              <UndoIcon
-                sx={{ cursor: 'pointer', fontSize: 30 }}
-                onClick={() => undoClick()}
-              />
-            </div>
-            <ItemTitle>{item?.title}</ItemTitle>
-          </Header>
-          <ItemWrapper>
-            <ItemImage>
-              <img src={'./first.png'} width={385} height={240} alt="" />
-            </ItemImage>
-            <StartPrice>
-              시작 입찰가 <br />
-              {item?.min_price}
-            </StartPrice>
-            <NowPrice>
-              현재 입찰가 <br />
-              {item?.current_bid ? item?.current_bid : 'x'}
-            </NowPrice>
-            <NowPrice>
-              낙찰 예정 시간 <br />
-              <span>
-                {item?.end_date ? formattingDate(item?.end_date) : 'x'}
-              </span>
-            </NowPrice>
-            <ItemInfo>{item?.describe}</ItemInfo>
-            <Chart>
-              <img src="./chart.png" width={385} height={240} alt="" />
-            </Chart>
-            <BuyButton>구매입찰</BuyButton>
-          </ItemWrapper>
-        </Wrapper>
-      )}
-    </PageWrapper>
+    <>
+      {closeShow &&
+        (auth?.user.id === item?.bidder_id ? (
+          <EndCard>
+            <span>낙찰된 상품 입니다.</span>
+            <SuccessButton onClick={() => {}}>구매완료</SuccessButton>
+          </EndCard>
+        ) : (
+          <EndCard>
+            <span>낙찰된 상품 입니다.</span>
+          </EndCard>
+        ))}
+      <PageWrapper>
+        {isLoading ? (
+          <LoadingSpinner width={50} height={50} $borderWidth={4} />
+        ) : (
+          <Wrapper>
+            <Header>
+              <div
+                style={{
+                  position: 'absolute',
+                  left: 0,
+                }}
+              >
+                <UndoIcon
+                  sx={{ cursor: 'pointer', fontSize: 30 }}
+                  onClick={() => navigate(-1)}
+                />
+              </div>
+              <ItemTitle>{item?.title}</ItemTitle>
+            </Header>
+            <ItemWrapper>
+              <ItemImage>
+                <img src={'./first.png'} width={385} height={240} alt="" />
+              </ItemImage>
+              <StartPrice>
+                시작 입찰가 <br />
+                {item?.min_price}
+              </StartPrice>
+              <NowPrice>
+                현재 입찰가 <br />
+                {item?.current_bid ? item?.current_bid : 'x'}
+              </NowPrice>
+              <NowPrice>
+                낙찰 예정 시간 <br />
+                <span>
+                  {item?.end_date ? formattingDate(item?.end_date) : 'x'}
+                </span>
+              </NowPrice>
+              <ItemInfo>{item?.describe}</ItemInfo>
+              <Chart>
+                <img src="./chart.png" width={385} height={240} alt="" />
+              </Chart>
+              <BuyButton>구매입찰</BuyButton>
+            </ItemWrapper>
+          </Wrapper>
+        )}
+      </PageWrapper>
+    </>
   );
 };
 
 export default Detail;
+
+const EndCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  position: absolute;
+  z-index: 10;
+  background-color: rgba(1, 1, 1, 0.5);
+  color: red;
+  font-weight: 700;
+  font-size: 40px;
+  width: 450px;
+  height: 100%;
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -133,4 +173,14 @@ const BuyButton = styled.div`
   color: white;
   font-weight: 600;
   border-radius: 40px;
+`;
+
+const SuccessButton = styled.button`
+  border-radius: 10px;
+  color: white;
+  padding: 15px 25px;
+  font-size: 25px;
+  background-color: green;
+  border: 1px solid black;
+  cursor: pointer;
 `;

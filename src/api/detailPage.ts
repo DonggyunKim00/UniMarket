@@ -1,8 +1,10 @@
+import { sleep } from '../libs/sleep';
 import { getClient } from '../libs/supabase';
 
 export const getDetailInfo = async (id: number) => {
   const { supabase } = getClient();
 
+  await sleep({ ms: 750 });
   const { data: product, error } = await supabase
     .from('product_card_view')
     .select('*')
