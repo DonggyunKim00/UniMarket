@@ -5,6 +5,8 @@ import PageWrapper from '../components/common/PageWrapper';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useGetDetail } from '../hooks/query/useGetDetail';
 import LoadingSpinner from '../components/common/LoadingSpinner';
+import { formattingDate } from '../libs/date';
+import { typeImplementation } from '@testing-library/user-event/dist/type/typeImplementation';
 const Detail = () => {
   const [searchParams] = useSearchParams();
   const idString = searchParams.get('id');
@@ -49,7 +51,13 @@ const Detail = () => {
             </StartPrice>
             <NowPrice>
               현재 입찰가 <br />
-              {item?.current_bid}
+              {item?.current_bid ? item?.current_bid : 'x'}
+            </NowPrice>
+            <NowPrice>
+              낙찰 예정 시간 <br />
+              <span>
+                {item?.end_date ? formattingDate(item?.end_date) : 'x'}
+              </span>
             </NowPrice>
             <ItemInfo>{item?.describe}</ItemInfo>
             <Chart>
@@ -69,6 +77,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  margin-bottom: 20px;
 `;
 
 const Header = styled.div`

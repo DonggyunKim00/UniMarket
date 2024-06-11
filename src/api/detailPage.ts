@@ -4,7 +4,7 @@ export const getDetailInfo = async (id: number) => {
   const { supabase } = getClient();
 
   const { data: product, error } = await supabase
-    .from('product')
+    .from('product_card_view')
     .select('*')
     .eq('id', id);
 
