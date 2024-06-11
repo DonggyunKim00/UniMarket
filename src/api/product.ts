@@ -13,6 +13,26 @@ export const getOneProduct = async (id: number) => {
   return { data };
 };
 
+export const getBeforeAuctionList = async () => {
+  const { supabase } = getClient();
+
+  const { data } = await supabase
+    .from('product_card_view')
+    .select('*')
+    .is('bidder_id', null);
+
+  return { data };
+};
+export const getAfterAuctionList = async () => {
+  const { supabase } = getClient();
+  const { data } = await supabase
+    .from('product_card_view')
+    .select('*')
+    .not('bidder_id', 'is', null);
+
+  return { data };
+};
+
 export const createProduct = async ({
   title,
   describe,

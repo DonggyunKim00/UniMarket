@@ -1,7 +1,8 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
 import { updateUserPay } from '../../api/pay';
+import { ENUM_PAY_TYPE } from '../../constant/enum';
 
 export const usePromptPay = () => {
   const [inputMoney, setInputMoney] = useState(0);
@@ -20,16 +21,39 @@ export const usePromptPay = () => {
   return { inputMoney, setMoneyPrompt };
 };
 
-export const useUpdatePay = (currentMoney: number, inputMoney: number) => {
-  const { mutate } = useMutation({
+export const useUpdatePay = (inputMoney: number) => {
+  const queryClient = useQueryClient();
+  const { mutate: payChargeMutate } = useMutation({
     mutationKey: ['user'],
     mutationFn: () => {
-      return updateUserPay(currentMoney, inputMoney);
+      return updateUserPay('charge', inputMoney);
     },
     onSuccess: () => {
+      queryClient.refetchQueries({ queryKey: ['user'] });
       alert(`${inputMoney}원 충전되었습니다.`);
+    },
+    onError: () => {
+      alert('다시 시도해주세요.');
     },
   });
 
-  return { mutate };
+  const { mutate: payMinusDealMutate } = useMutation({
+    mutationKey: ['user'],
+    mutationFn: () => {
+      return updateUserPay('minus_deal', inputMoney);
+    },
+    onSuccess: () => {
+      alert(`거래 완료되었습니다.`);
+    },
+  });
+
+  const { mutate: payPlusDealMutate } = useMutation({
+    mutationKey: ['user'],
+    mutationFn: () => {
+      return updateUserPay('minus_deal', inputMoney);
+    },
+    onSuccess: () => {},
+  });
+
+  return { payChargeMutate, payMinusDealMutate, payPlusDealMutate };
 };

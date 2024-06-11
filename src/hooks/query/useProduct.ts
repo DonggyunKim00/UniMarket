@@ -1,5 +1,10 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createProduct, getMyDealProduct } from '../../api/product';
+import {
+  createProduct,
+  getBeforeAuctionList,
+  getAfterAuctionList,
+  getMyDealProduct,
+} from '../../api/product';
 import { getMyProduct, getOneProduct } from '../../api/product';
 import { ProductEntity } from '../../constant/entity';
 
@@ -51,4 +56,22 @@ export const useCreateProduct = () => {
   });
 
   return { mutate };
+};
+
+export const useGetBeforeAuctionList = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ['product_list_beforeAuction'],
+    queryFn: () => getBeforeAuctionList(),
+  });
+
+  return { data, isLoading };
+};
+
+export const useGetAfterAuctionList = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ['product_list_afterAuction'],
+    queryFn: () => getAfterAuctionList(),
+  });
+
+  return { data, isLoading };
 };

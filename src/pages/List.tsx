@@ -1,25 +1,41 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import { styled } from 'styled-components';
 import PageWrapper from '../components/common/PageWrapper';
-import { useNavigate } from 'react-router-dom';
+import ProductCard from '../components/common/ProductCard';
+import ToggleButton from '../components/list/ToggleButton';
+import {
+  useGetAfterAuctionList,
+  useGetBeforeAuctionList,
+} from '../hooks/query/useProduct';
+import { getNow } from '../libs/date';
 
 const List = () => {
-  const navigate = useNavigate();
-  const onRegist = () => {
-    navigate(`/Register`);
-  };
+  const [isOn, setisOn] = useState(false);
+  const { data: beforeAuction } = useGetBeforeAuctionList();
+  const { data: afterAuction } = useGetAfterAuctionList();
+
   return (
     <PageWrapper>
-      <div>상품 리스트 페이지</div>
-      <RegisterButton onClick={() => onRegist()}>물품 등록</RegisterButton>
+      <ToggleButton isOn={isOn} setisOn={setisOn} />
+      <Container>
+        {isOn
+          ? afterAuction?.data?.map((item) => {
+              if (item.end_date > getNow())
+                return <ProductCard key={item.id} {...item} />;
+            })
+          : beforeAuction?.data?.map((item) => (
+              <ProductCard key={item.id} {...item} />
+            ))}
+      </Container>
     </PageWrapper>
   );
 };
 
 export default List;
 
-const RegisterButton = styled.div`
-  width: 100px;
-  height: 100px;
-  background-color: green;
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px 15px;
+  max-width: 360px;
 `;

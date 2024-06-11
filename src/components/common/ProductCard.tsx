@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { css, styled } from 'styled-components';
 import { formattingDate, getNow } from '../../libs/date';
 
@@ -7,9 +8,8 @@ const ProductCard = ({ ...props }) => {
   const { date } = getNow();
 
   return (
-    <Container>
+    <Container to={`/detail?id=${id}`}>
       {end_date < date ? <></> : <EndCard>낙찰</EndCard>}
-
       {photo ? <img src={photo} /> : <Image>None Image</Image>}
       <Content>
         <Title>{title}</Title>
@@ -28,12 +28,14 @@ const ProductCard = ({ ...props }) => {
 
 export default ProductCard;
 
-const Container = styled.div`
+const Container = styled(Link)`
   display: flex;
   flex-direction: column;
   width: 110px;
   height: 230px;
   border-radius: 5px;
+  text-decoration: none;
+  color: black;
 `;
 const EndCard = styled.div`
   width: 110px;
