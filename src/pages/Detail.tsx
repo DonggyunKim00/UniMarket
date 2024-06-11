@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import UndoIcon from '@mui/icons-material/Undo';
 import PageWrapper from '../components/common/PageWrapper';
@@ -6,7 +6,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useGetDetail } from '../hooks/query/useGetDetail';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { formattingDate } from '../libs/date';
-import { typeImplementation } from '@testing-library/user-event/dist/type/typeImplementation';
+
 const Detail = () => {
   const [searchParams] = useSearchParams();
   const idString = searchParams.get('id');
@@ -21,6 +21,11 @@ const Detail = () => {
   };
 
   const item = data?.product[0];
+  useEffect(() => {
+    if (!isLoading && !item) {
+      navigate('/404');
+    }
+  }, [isLoading]);
   return (
     <PageWrapper>
       {isLoading ? (
