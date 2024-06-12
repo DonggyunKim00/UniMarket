@@ -4,7 +4,7 @@ import { useUpdateDeleted } from '../../../hooks/query/useProduct';
 import { useUpdateDeal } from '../../../hooks/query/usePay';
 
 export const WinnerModal = ({ ...props }) => {
-  const { current_bid, bidder_id, owner_id, product_id } = props;
+  const { current_bid, bidder_id, owner_id, product_id, my_money } = props;
   const { payMinusDealMutate, payPlusDealMutate } = useUpdateDeal();
   const { mutate: updateMutate } = useUpdateDeleted();
   return (
@@ -13,15 +13,19 @@ export const WinnerModal = ({ ...props }) => {
       <SuccessButton
         onClick={() => {
           if (window.confirm('정말로 구매 하시겠습니까?')) {
-            payMinusDealMutate({
-              inputMoney: current_bid,
-              uuid: bidder_id,
-            });
-            payPlusDealMutate({
-              inputMoney: current_bid,
-              uuid: owner_id,
-            });
-            updateMutate(product_id || 0);
+            if (my_money > current_bid) {
+              payMinusDealMutate({
+                inputMoney: current_bid,
+                uuid: bidder_id,
+              });
+              payPlusDealMutate({
+                inputMoney: current_bid,
+                uuid: owner_id,
+              });
+              updateMutate(product_id || 0);
+            } else {
+              alert('보유한 페이가 부족합니다. 충전 후 이용해주세요');
+            }
           }
         }}
       >

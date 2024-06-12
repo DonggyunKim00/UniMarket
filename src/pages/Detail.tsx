@@ -48,7 +48,7 @@ const Detail = () => {
     <>
       {closeShow &&
         (auth?.user.id === item?.bidder_id ? (
-          <WinnerModal {...item} product_id={id} />
+          <WinnerModal {...item} product_id={id} my_money={auth?.user.money} />
         ) : (
           <NormalModal />
         ))}
