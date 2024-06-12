@@ -16,6 +16,7 @@ const Container = styled.div`
   justify-content: center;
   background-color: black;
   min-height: 100vh;
+  position: relative;
 `;
 const Wrapper = styled.div`
   min-width: 390px;

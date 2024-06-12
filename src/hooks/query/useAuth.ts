@@ -44,7 +44,6 @@ export const useSignUpMutate = () => {
 
 export const useGetAuthUser = () => {
   const { jwt } = useGetToken();
-  console.log(jwt);
   const { data, isLoading } = useQuery({
     queryKey: ['user'],
     queryFn: () => getUser(),

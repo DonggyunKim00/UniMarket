@@ -12,3 +12,14 @@ export const updateUserPay = async (
     .from('pay_history')
     .insert([{ user_id: uuid, amount: inputMoney, pay_type: type }]);
 };
+
+export const updateUserPayWithUUID = async (
+  type: ENUM_PAY_TYPE,
+  inputMoney: number,
+  uuid: string,
+) => {
+  const { supabase } = getClient();
+  const { error } = await supabase
+    .from('pay_history')
+    .insert([{ user_id: uuid, amount: inputMoney, pay_type: type }]);
+};
