@@ -8,19 +8,24 @@ import {
 } from '../../api/product';
 import { getMyProduct, getOneProduct } from '../../api/product';
 import { ProductEntity } from '../../constant/entity';
+import { useGetToken } from './useAuth';
 
 export const useGetMyPost = () => {
+  const { jwt } = useGetToken();
   const { data, isLoading } = useQuery({
     queryKey: ['mypost-list'],
     queryFn: () => getMyProduct(),
+    enabled: !!jwt.access_token,
   });
 
   return { data, isLoading };
 };
 export const useGetMyDeal = () => {
+  const { jwt } = useGetToken();
   const { data, isLoading } = useQuery({
     queryKey: ['mydeal-list'],
     queryFn: () => getMyDealProduct(),
+    enabled: !!jwt.access_token,
   });
 
   return { data, isLoading };
