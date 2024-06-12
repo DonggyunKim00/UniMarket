@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import { useUpdateDeleted } from '../../../hooks/query/useProduct';
 import { useUpdateDeal } from '../../../hooks/query/usePay';
 
-const WinnerModal = ({ ...props }) => {
+export const WinnerModal = ({ ...props }) => {
   const { current_bid, bidder_id, owner_id, product_id } = props;
   const { payMinusDealMutate, payPlusDealMutate } = useUpdateDeal();
   const { mutate: updateMutate } = useUpdateDeleted();
@@ -31,9 +31,15 @@ const WinnerModal = ({ ...props }) => {
   );
 };
 
-export default WinnerModal;
+export const NormalModal = () => {
+  return (
+    <Container>
+      <span>낙찰된 상품 입니다.</span>
+    </Container>
+  );
+};
 
-export const Container = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;

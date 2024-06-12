@@ -9,8 +9,7 @@ import { useGetAuthUser } from '../hooks/query/useAuth';
 import BidButton from '../components/detail/BidButton';
 import ProductHeader from '../components/detail/ProductHeader';
 import ProductContent from '../components/detail/ProductContent';
-import WinnerModal from '../components/detail/EndCard/WinnerModal';
-import NormalModal from '../components/detail/EndCard/NormalModal';
+import { WinnerModal, NormalModal } from '../components/detail/EndCard';
 
 const Detail = () => {
   const [searchParams] = useSearchParams();
