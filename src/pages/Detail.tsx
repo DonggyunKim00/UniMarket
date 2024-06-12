@@ -60,7 +60,12 @@ const Detail = () => {
           <Wrapper>
             <ProductHeader title={item?.title} />
             <ProductContent {...item} />
-            <BidButton {...item} product_id={id} uuid={auth?.user.id} />
+            <BidButton
+              {...item}
+              product_id={id}
+              uuid={auth?.user.id}
+              my_money={auth?.user.money}
+            />
           </Wrapper>
         )}
       </PageWrapper>

@@ -5,7 +5,15 @@ import { usePromptPay } from '../../hooks/query/usePay';
 import { getNow } from '../../libs/date';
 
 const BidButton = ({ ...props }) => {
-  const { current_bid, min_price, product_id, auction_id, uuid } = props;
+  const {
+    current_bid,
+    min_price,
+    product_id,
+    auction_id,
+    uuid,
+    my_money,
+    owner_id,
+  } = props;
 
   const { inputMoney, setMoneyPrompt, setInputMoney } = usePromptPay();
   const { mutate } = useInsertAuctionHistory(product_id);
@@ -13,7 +21,11 @@ const BidButton = ({ ...props }) => {
 
   useEffect(() => {
     if (inputMoney) {
-      if (min_price > inputMoney) alert('시작 입찰가 이상 입찰 가능합니다.');
+      if (owner_id === uuid) alert('본인의 상품은 입찰할 수 없습니다.');
+      else if (my_money < inputMoney)
+        alert('보유하고 있는 유니페이가 부족합니다.');
+      else if (min_price > inputMoney)
+        alert('시작 입찰가 이상 입찰 가능합니다.');
       else if (current_bid && inputMoney < current_bid + 1000)
         alert('현재 입찰가보다 1000원 이상 입찰 가능합니다.');
       else {
