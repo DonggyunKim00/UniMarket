@@ -1,6 +1,12 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { getUser, insertUserData, login, signup } from '../../api/mypage';
+import {
+  getUser,
+  insertUserData,
+  login,
+  logout,
+  signup,
+} from '../../api/mypage';
 import { SignUpInfo } from '../../store/signup/form';
 
 export const useLogin = (loginForm: { email: string; password: string }) => {
@@ -13,6 +19,18 @@ export const useLogin = (loginForm: { email: string; password: string }) => {
         alert('로그인 되었습니다.');
         window.location.reload();
       }
+    },
+  });
+
+  return { mutate };
+};
+
+export const useLogout = () => {
+  const { mutate } = useMutation({
+    mutationFn: () => logout(),
+    onSuccess: () => {
+      alert('로그아웃 되었습니다.');
+      window.location.reload();
     },
   });
 

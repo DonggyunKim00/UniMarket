@@ -58,6 +58,12 @@ export const login = async ({
   return { data, error };
 };
 
+export const logout = async () => {
+  const { supabase } = getClient();
+
+  const { error } = await supabase.auth.signOut();
+};
+
 export const getUser = async (): Promise<{ user: UserEntity }> => {
   const { supabase } = getClient();
   const { uuid } = await getuuid();
