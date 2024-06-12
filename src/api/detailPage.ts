@@ -12,3 +12,19 @@ export const getDetailInfo = async (id: number) => {
 
   return { product, error };
 };
+
+export const initAuction = async (product_id: number) => {
+  const { supabase } = getClient();
+
+  const { error: auctionError } = await supabase
+    .from('auction')
+    .update({ end_date: null, history_id: null })
+    .eq('product_id', product_id);
+
+  const { error: productError } = await supabase
+    .from('product')
+    .update({ current_bid: null })
+    .eq('id', product_id);
+
+  return { auctionError, productError };
+};
