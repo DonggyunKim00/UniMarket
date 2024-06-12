@@ -13,10 +13,10 @@ export const usePromptPay = () => {
   }, [inputMoney]);
 
   const setMoneyPrompt = () => {
-    setInputMoney(Number(prompt('충전할 금액을 입력해주세요.', '0')));
+    setInputMoney(Number(prompt('금액을 입력해주세요.', '0')));
   };
 
-  return { inputMoney, setMoneyPrompt };
+  return { inputMoney, setMoneyPrompt, setInputMoney };
 };
 
 export const useUpdatePay = (inputMoney: number) => {

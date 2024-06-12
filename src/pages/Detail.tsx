@@ -61,7 +61,7 @@ const Detail = () => {
           <Wrapper>
             <ProductHeader title={item?.title} />
             <ProductContent {...item} />
-            <BidButton />
+            <BidButton {...item} product_id={id} uuid={auth?.user.id} />
           </Wrapper>
         )}
       </PageWrapper>
