@@ -7,6 +7,8 @@ import { useGetDetail } from '../hooks/query/useGetDetail';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { formattingDate, getNow } from '../libs/date';
 import { useGetAuthUser } from '../hooks/query/useAuth';
+import { useUpdateDeal } from '../hooks/query/usePay';
+import { useUpdateDeleted } from '../hooks/query/useProduct';
 
 const Detail = () => {
   const [searchParams] = useSearchParams();
@@ -14,16 +16,19 @@ const Detail = () => {
 
   const idString = searchParams.get('id');
   const id = idString ? parseInt(idString) : null;
+
   const { data, isLoading } = useGetDetail(id as number);
-  const { data: auth } = useGetAuthUser();
-
   const item = data?.product[0];
-
   useEffect(() => {
     if (!isLoading && !item) {
       navigate('/404');
     }
   }, [isLoading]);
+
+  const { data: auth } = useGetAuthUser();
+
+  const { payMinusDealMutate, payPlusDealMutate } = useUpdateDeal();
+  const { mutate: updateMutate } = useUpdateDeleted();
 
   const [closeShow, setCloseShow] = useState<boolean>(false);
   useEffect(() => {
@@ -43,7 +48,23 @@ const Detail = () => {
         (auth?.user.id === item?.bidder_id ? (
           <EndCard>
             <span>낙찰된 상품 입니다.</span>
-            <SuccessButton onClick={() => {}}>구매완료</SuccessButton>
+            <SuccessButton
+              onClick={() => {
+                if (window.confirm('정말로 구매 하시겠습니까?')) {
+                  payMinusDealMutate({
+                    inputMoney: item.current_bid,
+                    uuid: item.bidder_id,
+                  });
+                  payPlusDealMutate({
+                    inputMoney: item.current_bid,
+                    uuid: item.owner_id,
+                  });
+                  updateMutate(id || 0);
+                }
+              }}
+            >
+              구매완료
+            </SuccessButton>
           </EndCard>
         ) : (
           <EndCard>

@@ -4,6 +4,7 @@ import {
   getBeforeAuctionList,
   getAfterAuctionList,
   getMyDealProduct,
+  updateDeletedProduct,
 } from '../../api/product';
 import { getMyProduct, getOneProduct } from '../../api/product';
 import { ProductEntity } from '../../constant/entity';
@@ -74,4 +75,13 @@ export const useGetAfterAuctionList = () => {
   });
 
   return { data, isLoading };
+};
+
+export const useUpdateDeleted = () => {
+  const { mutate } = useMutation({
+    mutationKey: ['productList'],
+    mutationFn: (id: number) => updateDeletedProduct(id),
+  });
+
+  return { mutate };
 };

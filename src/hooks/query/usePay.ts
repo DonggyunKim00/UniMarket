@@ -1,8 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-
-import { updateUserPay } from '../../api/pay';
-import { ENUM_PAY_TYPE } from '../../constant/enum';
+import { updateUserPay, updateUserPayWithUUID } from '../../api/pay';
 
 export const usePromptPay = () => {
   const [inputMoney, setInputMoney] = useState(0);
@@ -37,23 +35,32 @@ export const useUpdatePay = (inputMoney: number) => {
     },
   });
 
+  return { payChargeMutate };
+};
+
+interface DealMutateProp {
+  inputMoney: number;
+  uuid: string;
+}
+export const useUpdateDeal = () => {
   const { mutate: payMinusDealMutate } = useMutation({
     mutationKey: ['user'],
-    mutationFn: () => {
-      return updateUserPay('minus_deal', inputMoney);
+    mutationFn: ({ inputMoney, uuid }: DealMutateProp) => {
+      return updateUserPayWithUUID('minus_deal', inputMoney * -1, uuid);
     },
     onSuccess: () => {
       alert(`거래 완료되었습니다.`);
+      window.location.href = '/';
     },
   });
 
   const { mutate: payPlusDealMutate } = useMutation({
     mutationKey: ['user'],
-    mutationFn: () => {
-      return updateUserPay('minus_deal', inputMoney);
+    mutationFn: ({ inputMoney, uuid }: DealMutateProp) => {
+      return updateUserPayWithUUID('plus_deal', inputMoney, uuid);
     },
     onSuccess: () => {},
   });
 
-  return { payChargeMutate, payMinusDealMutate, payPlusDealMutate };
+  return { payMinusDealMutate, payPlusDealMutate };
 };

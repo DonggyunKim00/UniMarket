@@ -71,3 +71,13 @@ export const getMyDealProduct = async () => {
 
   return { mydeal };
 };
+
+export const updateDeletedProduct = async (id: number) => {
+  const { supabase } = getClient();
+  const { data: mydeal, error } = await supabase
+    .from('product')
+    .update({ deleted: true })
+    .eq('id', id);
+
+  return { mydeal };
+};
