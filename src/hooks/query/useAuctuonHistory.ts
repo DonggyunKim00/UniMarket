@@ -27,7 +27,7 @@ export const useInsertAuctionHistory = (product_id: number) => {
     }: InsertAuctionHistoryData) =>
       insertAuctionHistory({ bid_amount, bid_date, bidder_id, auction_id }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['detailInfo'] });
+      queryClient.invalidateQueries({ queryKey: ['detailInfo', product_id] });
       alert('입찰 완료되었습니다.');
     },
     onError: () => {

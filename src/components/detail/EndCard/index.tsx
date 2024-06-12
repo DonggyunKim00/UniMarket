@@ -2,9 +2,11 @@ import React from 'react';
 import { styled } from 'styled-components';
 import { useUpdateDeleted } from '../../../hooks/query/useProduct';
 import { useUpdateDeal } from '../../../hooks/query/usePay';
+import { useInitAuction } from '../../../hooks/query/useInitAuction';
 
-export const WinnerModal = ({ ...props }) => {
-  const { current_bid, bidder_id, owner_id, product_id, my_money } = props;
+export const Winner = ({ ...props }) => {
+  const { current_bid, bidder_id, owner_id, product_id, my_money, deleted } =
+    props;
   const { payMinusDealMutate, payPlusDealMutate } = useUpdateDeal();
   const { mutate: updateMutate } = useUpdateDeleted();
   return (
@@ -35,10 +37,36 @@ export const WinnerModal = ({ ...props }) => {
   );
 };
 
-export const NormalModal = () => {
+export const Normal = () => {
   return (
     <Container>
       <span>낙찰된 상품 입니다.</span>
+    </Container>
+  );
+};
+
+export const SuccessDeal = () => {
+  return (
+    <Container>
+      <span>판매된 상품 입니다.</span>
+    </Container>
+  );
+};
+
+export const FailedDeal = ({ product_id }: { product_id: number }) => {
+  const { mutate } = useInitAuction(product_id);
+  return (
+    <Container>
+      <span>해당 상품이</span>
+      <span>아직 판매되지 않았습니다.</span>
+      {/* 
+        해당 상품id에 대한
+        product.current_bid, 
+        auction.end_date, 
+        auction.history_id, 
+        NULL로 만들기 
+      */}
+      <SuccessButton onClick={() => mutate()}>경매 초기화</SuccessButton>
     </Container>
   );
 };
@@ -55,8 +83,12 @@ const Container = styled.div`
   color: red;
   font-weight: 700;
   font-size: 40px;
-  width: 450px;
+  width: 420px;
   height: 100%;
+  span {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 const SuccessButton = styled.button`

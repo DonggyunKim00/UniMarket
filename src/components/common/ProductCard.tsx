@@ -4,12 +4,13 @@ import { css, styled } from 'styled-components';
 import { formattingDate, getNow } from '../../libs/date';
 
 const ProductCard = ({ ...props }) => {
-  const { id, title, photo, end_date, current_bid } = props;
+  const { id, title, photo, end_date, current_bid, deleted } = props;
   const { date } = getNow();
 
   return (
     <Container to={`/detail?id=${id}`}>
-      {end_date < date ? <></> : <EndCard>낙찰</EndCard>}
+      {Date.parse(end_date) < Date.parse(date.toISOString()) &&
+        (deleted ? <EndCard>판매 완료</EndCard> : <EndCard>낙찰</EndCard>)}
       {photo ? <img src={photo} /> : <Image>None Image</Image>}
       <Content>
         <Title>{title}</Title>
@@ -31,6 +32,7 @@ export default ProductCard;
 const Container = styled(Link)`
   display: flex;
   flex-direction: column;
+  position: relative;
   width: 110px;
   height: 230px;
   border-radius: 5px;

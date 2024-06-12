@@ -9,7 +9,12 @@ import { useGetAuthUser } from '../hooks/query/useAuth';
 import BidButton from '../components/detail/BidButton';
 import ProductHeader from '../components/detail/ProductHeader';
 import ProductContent from '../components/detail/ProductContent';
-import { WinnerModal, NormalModal } from '../components/detail/EndCard';
+import {
+  Winner,
+  Normal,
+  SuccessDeal,
+  FailedDeal,
+} from '../components/detail/EndCard';
 
 const Detail = () => {
   const [searchParams] = useSearchParams();
@@ -25,16 +30,13 @@ const Detail = () => {
     if (!isLoading && !item) {
       navigate('/404');
     }
-    if (item && item.deleted) {
-      navigate('/404');
-    }
   }, [isLoading, item]);
 
   const { data: auth } = useGetAuthUser();
 
   const [closeShow, setCloseShow] = useState<boolean>(false);
   useEffect(() => {
-    if (data && auth) {
+    if (data) {
       const { date } = getNow();
       if (item.end_date) {
         if (Date.parse(item.end_date) < Date.parse(date.toISOString()))
@@ -42,15 +44,23 @@ const Detail = () => {
         else setCloseShow(false);
       } else setCloseShow(false);
     }
-  }, [data, auth]);
+  }, [data]);
 
   return (
     <>
       {closeShow &&
         (auth?.user.id === item?.bidder_id ? (
-          <WinnerModal {...item} product_id={id} my_money={auth?.user.money} />
+          item?.deleted ? (
+            <SuccessDeal />
+          ) : (
+            <Winner {...item} product_id={id} my_money={auth?.user.money} />
+          )
+        ) : item?.deleted ? (
+          <SuccessDeal />
+        ) : auth?.user.id === item?.owner_id ? (
+          <FailedDeal product_id={id} />
         ) : (
-          <NormalModal />
+          <Normal />
         ))}
 
       <PageWrapper>
