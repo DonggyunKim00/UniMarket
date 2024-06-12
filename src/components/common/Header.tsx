@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
+import { useLogout } from '../../hooks/query/useAuth';
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -17,6 +18,14 @@ const Header = () => {
   };
   const navigate = useNavigate();
 
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+  useEffect(() => {
+    const token = localStorage.getItem('sb-ydagnjvmbsdbjvmcpeaf-auth-token');
+    if (token) setIsLogin(true);
+    else setIsLogin(false);
+  }, []);
+
+  const { mutate: logoutMutate } = useLogout();
   return (
     <Wrapper>
       <LogoBox>
@@ -46,6 +55,9 @@ const Header = () => {
           <MenuItem onClick={() => navigate('/')}>메인페이지</MenuItem>
           <MenuItem onClick={() => navigate('/list')}>상품 게시판</MenuItem>
           <MenuItem onClick={() => navigate('/myPage')}>마이페이지</MenuItem>
+          {isLogin && (
+            <MenuItem onClick={() => logoutMutate()}>로그아웃</MenuItem>
+          )}
         </Menu>
       </MenuBox>
     </Wrapper>
