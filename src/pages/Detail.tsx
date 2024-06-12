@@ -23,6 +23,9 @@ const Detail = () => {
     if (!isLoading && !item) {
       navigate('/404');
     }
+    if (item && item.deleted) {
+      navigate('/404');
+    }
   }, [isLoading]);
 
   const { data: auth } = useGetAuthUser();
