@@ -51,6 +51,7 @@ const Header = () => {
           MenuListProps={{
             'aria-labelledby': 'basic-button',
           }}
+          sx={{ zIndex: 999999 }}
         >
           <MenuItem onClick={() => navigate('/')}>메인페이지</MenuItem>
           <MenuItem onClick={() => navigate('/list')}>상품 게시판</MenuItem>
