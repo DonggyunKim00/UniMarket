@@ -22,21 +22,28 @@ const PreviewList = ({ data, state }: any) => {
       <ListBox>
         {data?.auction.map((item: any, id: number) => (
           <ItemBox key={id} onClick={() => itemClick(item.product_id)}>
-            <img
-              src={item.photo || './first.png'}
-              alt=""
-              width={60}
-              height={60}
-            />
+            {item.photo ? (
+              <img
+                src={item.photo}
+                width={60}
+                height={60}
+                alt=""
+                style={{ borderRadius: 5 }}
+              />
+            ) : (
+              <Image>None Image</Image>
+            )}
+
             <DetailBox>
               <ItemDetail> 제목 : {item.title}</ItemDetail>
               <ItemDetail>설명 : {item.describe}</ItemDetail>
-
+              <ItemDetail>경매 시작가: {item.min_price}</ItemDetail>
               {state ? null : (
                 <ItemDetail>현재 입찰가: {item.current_bid}</ItemDetail>
               )}
-              <ItemDetail>경매 시작가: {item.min_price}</ItemDetail>
-              <ItemDetail>낙찰 예정시간: {item.end_date}</ItemDetail>
+              {state ? null : (
+                <ItemEndDate>낙찰 예정시간: {item.end_date}</ItemEndDate>
+              )}
             </DetailBox>
           </ItemBox>
         ))}
@@ -97,7 +104,23 @@ const ItemDetail = styled.div`
   overflow-y: hidden;
   height: 20px;
 `;
+const ItemEndDate = styled.div`
+  height: 20px;
+  overflow: visible;
+`;
 const DetailBox = styled.div`
   display: flex;
   flex-direction: column;
+  width: 200px;
+`;
+const Image = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  background-color: darkcyan;
+  border-radius: 5px;
+  color: white;
+  font-weight: 700;
 `;
