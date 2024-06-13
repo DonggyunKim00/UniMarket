@@ -19,7 +19,8 @@ export const getBeforeAuctionList = async () => {
   const { data } = await supabase
     .from('product_card_view')
     .select('*')
-    .is('bidder_id', null);
+    .is('bidder_id', null)
+    .order('id', { ascending: false });
 
   return { data };
 };
@@ -28,7 +29,8 @@ export const getAfterAuctionList = async () => {
   const { data } = await supabase
     .from('product_card_view')
     .select('*')
-    .not('bidder_id', 'is', null);
+    .not('bidder_id', 'is', null)
+    .order('end_date', { ascending: false });
 
   return { data };
 };
