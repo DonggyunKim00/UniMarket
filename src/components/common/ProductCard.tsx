@@ -2,9 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { css, styled } from 'styled-components';
 import { formattingDate, getNow } from '../../libs/date';
+import divideNum from '../../libs/divideNum';
 
 const ProductCard = ({ ...props }) => {
-  const { id, title, photo, end_date, current_bid, deleted } = props;
+  const { id, title, photo, end_date, current_bid, deleted, min_price } = props;
   const { date } = getNow();
 
   return (
@@ -19,8 +20,17 @@ const ProductCard = ({ ...props }) => {
           <span>{end_date ? formattingDate(end_date) : '미정'}</span>
         </EndDate>
         <CurrentPrice>
-          <b>현재 입찰가</b>
-          <span>{current_bid || 'x'}</span>
+          {min_price && current_bid ? (
+            <>
+              <b>현재 입찰가</b>
+              <span>{divideNum(current_bid)}</span>
+            </>
+          ) : (
+            <>
+              <b>최소 입찰가</b>
+              <span>{divideNum(min_price)}</span>
+            </>
+          )}
         </CurrentPrice>
       </Content>
     </Container>
@@ -38,6 +48,9 @@ const Container = styled(Link)`
   border-radius: 5px;
   text-decoration: none;
   color: black;
+  img {
+    height: 120px;
+  }
 `;
 const EndCard = styled.div`
   width: 110px;

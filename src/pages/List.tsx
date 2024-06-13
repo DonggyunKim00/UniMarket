@@ -20,8 +20,8 @@ const List = () => {
       <Container>
         {isOn
           ? afterAuction?.data?.map((item) => {
-              if (item.end_date > getNow())
-                return <ProductCard key={item.id} {...item} />;
+              // if (item.end_date > getNow())
+              return <ProductCard key={item.id} {...item} />;
             })
           : beforeAuction?.data?.map((item) => (
               <ProductCard key={item.id} {...item} />
