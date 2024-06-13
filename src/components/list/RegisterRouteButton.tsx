@@ -28,8 +28,9 @@ const Container = styled(Link)`
   padding: 7px 14px;
   text-decoration: none;
   box-sizing: border-box;
-  width: 360px;
   position: fixed;
   bottom: 30px;
   z-index: 100;
+  left: 50%;
+  transform: translate(-50%, 0);
 `;

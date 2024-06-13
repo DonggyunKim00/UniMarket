@@ -24,12 +24,7 @@ const List = () => {
               return <ProductCard key={item.id} {...item} />;
             })
           : beforeAuction?.data?.map((item) => (
-              <>
-                <ProductCard key={item.id} {...item} />
-                <ProductCard key={item.id} {...item} />
-                <ProductCard key={item.id} {...item} />
-                <ProductCard key={item.id} {...item} />
-              </>
+              <ProductCard key={item.id} {...item} />
             ))}
       </Container>
       <RegisterRouteButton />
