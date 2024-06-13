@@ -29,5 +29,5 @@ const Wrapper = styled.div`
   justify-content: space-evenly;
   align-items: center;
   gap: 20px;
-  height: 900px;
+  margin-bottom: 20px;
 `;
