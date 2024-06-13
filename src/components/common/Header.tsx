@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
-import { useLogout } from '../../hooks/query/useAuth';
+import { useGetAuthUser, useLogout } from '../../hooks/query/useAuth';
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -18,20 +18,18 @@ const Header = () => {
   };
   const navigate = useNavigate();
 
-  const [isLogin, setIsLogin] = useState<boolean>(false);
-  useEffect(() => {
-    const token = localStorage.getItem('sb-ydagnjvmbsdbjvmcpeaf-auth-token');
-    if (token) setIsLogin(true);
-    else setIsLogin(false);
-  }, []);
-
+  const { data } = useGetAuthUser();
   const { mutate: logoutMutate } = useLogout();
+
   return (
     <Wrapper>
       <LogoBox>
         <img src="./UniLogo.png" width={90} height={90} alt="" />
       </LogoBox>
-      <TypoBox>UNI-MARKET</TypoBox>
+      <TypoWrapper>
+        <TypoBox>UNI-MARKET</TypoBox>
+        {data && <SchoolName>{data?.user.univ_name}</SchoolName>}
+      </TypoWrapper>
       <MenuBox>
         <Button
           id="basic-button"
@@ -56,9 +54,7 @@ const Header = () => {
           <MenuItem onClick={() => navigate('/')}>메인페이지</MenuItem>
           <MenuItem onClick={() => navigate('/list')}>상품 게시판</MenuItem>
           <MenuItem onClick={() => navigate('/myPage')}>마이페이지</MenuItem>
-          {isLogin && (
-            <MenuItem onClick={() => logoutMutate()}>로그아웃</MenuItem>
-          )}
+          {data && <MenuItem onClick={() => logoutMutate()}>로그아웃</MenuItem>}
         </Menu>
       </MenuBox>
     </Wrapper>
@@ -83,7 +79,13 @@ const LogoBox = styled.div`
   align-items: center;
   justify-content: center;
 `;
-const TypoBox = styled.p`
+const TypoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+`;
+const TypoBox = styled.div`
   color: white;
   display: flex;
   align-items: center;
@@ -91,6 +93,14 @@ const TypoBox = styled.p`
   font-size: 25px;
   font-weight: 600;
   font-family: Georgia, 'Times New Roman', Times, serif;
+`;
+const SchoolName = styled.div`
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
 `;
 
 const MenuBox = styled.div`
