@@ -1,5 +1,6 @@
 import {
   getAuctionHistory,
+  getOneAuctionHistory,
   insertAuctionHistory,
   InsertAuctionHistoryData,
 } from '../../api/auctionHistory';
@@ -9,6 +10,14 @@ export const useGetAuctionHistory = (product_id: number) => {
   const { data, isLoading } = useQuery({
     queryKey: ['auction_history', product_id],
     queryFn: () => getAuctionHistory(),
+  });
+
+  return { data, isLoading };
+};
+export const useGetOneAuctionHistory = (product_id: number) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ['one_auction_history'],
+    queryFn: () => getOneAuctionHistory(product_id),
   });
 
   return { data, isLoading };

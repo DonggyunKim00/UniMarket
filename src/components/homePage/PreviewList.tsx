@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useNavigate } from 'react-router-dom';
+import { formattingDate } from '../../libs/date';
 
 const PreviewList = ({ data, state }: any) => {
   const navigate = useNavigate();
@@ -42,7 +43,9 @@ const PreviewList = ({ data, state }: any) => {
                 <ItemDetail>현재 입찰가: {item.current_bid}</ItemDetail>
               )}
               {state ? null : (
-                <ItemEndDate>낙찰 예정시간: {item.end_date}</ItemEndDate>
+                <ItemEndDate>
+                  낙찰 예정시간: {formattingDate(item.end_date)}
+                </ItemEndDate>
               )}
             </DetailBox>
           </ItemBox>
