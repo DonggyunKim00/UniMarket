@@ -1,6 +1,6 @@
 import { getClient } from '../libs/supabase';
-import { AuctionEntity, ProductEntity } from '../constant/entity';
-import { getuuid } from './mypage';
+import { ProductEntity } from '../constant/entity';
+import { getUser, getuuid } from './mypage';
 
 export const getOneProduct = async (id: number) => {
   const { supabase } = getClient();
@@ -15,24 +15,45 @@ export const getOneProduct = async (id: number) => {
 
 export const getBeforeAuctionList = async () => {
   const { supabase } = getClient();
+  const { user } = await getUser();
 
-  const { data } = await supabase
-    .from('product_card_view')
-    .select('*')
-    .is('bidder_id', null)
-    .order('id', { ascending: false });
-
-  return { data };
+  if (user) {
+    const { data } = await supabase
+      .from('product_card_view')
+      .select('*')
+      .is('bidder_id', null)
+      .eq('univ_name', user.univ_name)
+      .order('id', { ascending: false });
+    return { data };
+  } else {
+    const { data } = await supabase
+      .from('product_card_view')
+      .select('*')
+      .is('bidder_id', null)
+      .order('id', { ascending: false });
+    return { data };
+  }
 };
+
 export const getAfterAuctionList = async () => {
   const { supabase } = getClient();
-  const { data } = await supabase
-    .from('product_card_view')
-    .select('*')
-    .not('bidder_id', 'is', null)
-    .order('end_date', { ascending: false });
-
-  return { data };
+  const { user } = await getUser();
+  if (user) {
+    const { data } = await supabase
+      .from('product_card_view')
+      .select('*')
+      .not('bidder_id', 'is', null)
+      .eq('univ_name', user.univ_name)
+      .order('end_date', { ascending: false });
+    return { data };
+  } else {
+    const { data } = await supabase
+      .from('product_card_view')
+      .select('*')
+      .not('bidder_id', 'is', null)
+      .order('end_date', { ascending: false });
+    return { data };
+  }
 };
 
 export const createProduct = async ({
