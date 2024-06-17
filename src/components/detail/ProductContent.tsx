@@ -57,7 +57,7 @@ const ProductContent = ({ ...props }) => {
         <span>{end_date ? formattingDate(end_date) : 'x'}</span>
       </NowPrice>
       <ItemInfo>{describe}</ItemInfo>
-      <LineChart width={390} height={300} data={bidArr}>
+      <LineChart width={360} height={300} data={bidArr}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" />
         <YAxis dataKey="pay" />
