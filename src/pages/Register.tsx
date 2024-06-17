@@ -21,7 +21,7 @@ const Register = () => {
     navigate(-1);
   };
 
-  const UUID = useGetAuthUser().data?.user.id;
+  const UUID = useGetAuthUser().data?.user?.id;
 
   const handleButtonClick = () => {
     const fileInput = document.getElementById('fileInput') as HTMLInputElement;

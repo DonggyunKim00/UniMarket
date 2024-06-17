@@ -49,15 +49,15 @@ const Detail = () => {
   return (
     <>
       {closeShow &&
-        (auth?.user.id === item?.bidder_id ? (
+        (auth?.user?.id === item?.bidder_id ? (
           item?.deleted ? (
             <SuccessDeal />
           ) : (
-            <Winner {...item} product_id={id} my_money={auth?.user.money} />
+            <Winner {...item} product_id={id} my_money={auth?.user?.money} />
           )
         ) : item?.deleted ? (
           <SuccessDeal />
-        ) : auth?.user.id === item?.owner_id ? (
+        ) : auth?.user?.id === item?.owner_id ? (
           <FailedDeal product_id={id} />
         ) : (
           <Normal />
@@ -73,8 +73,8 @@ const Detail = () => {
             <BidButton
               {...item}
               product_id={id}
-              uuid={auth?.user.id}
-              my_money={auth?.user.money}
+              uuid={auth?.user?.id}
+              my_money={auth?.user?.money}
             />
           </Wrapper>
         )}

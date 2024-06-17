@@ -28,7 +28,7 @@ const Header = () => {
       </LogoBox>
       <TypoWrapper>
         <TypoBox>UNI-MARKET</TypoBox>
-        {data && <SchoolName>{data?.user.univ_name}</SchoolName>}
+        {data && <SchoolName>{data?.user?.univ_name}</SchoolName>}
       </TypoWrapper>
       <MenuBox>
         <Button
