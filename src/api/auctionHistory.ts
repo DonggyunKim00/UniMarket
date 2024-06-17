@@ -27,3 +27,13 @@ export const getAuctionHistory = async () => {
 
   return { data, error };
 };
+
+export const getOneAuctionHistory = async (id: number) => {
+  const { supabase } = getClient();
+  const { data, error } = await supabase
+    .from('auction_history')
+    .select('*')
+    .eq('auction_id', id);
+
+  return { data, error };
+};
