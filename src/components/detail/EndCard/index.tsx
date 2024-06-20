@@ -15,7 +15,7 @@ export const Winner = ({ ...props }) => {
       <SuccessButton
         onClick={() => {
           if (window.confirm('정말로 구매 하시겠습니까?')) {
-            if (my_money > current_bid) {
+            if (my_money >= current_bid) {
               payMinusDealMutate({
                 inputMoney: current_bid,
                 uuid: bidder_id,

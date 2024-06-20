@@ -64,16 +64,21 @@ export const logout = async () => {
   const { error } = await supabase.auth.signOut();
 };
 
-export const getUser = async (): Promise<{ user: UserEntity }> => {
+export const getUser = async (): Promise<{ user: UserEntity | null }> => {
   const { supabase } = getClient();
   const { uuid } = await getuuid();
-  const { data: user, error } = await supabase
-    .from('user')
-    .select('*')
-    .eq('id', uuid)
-    .single();
 
-  return { user };
+  if (uuid) {
+    const { data: user, error } = await supabase
+      .from('user')
+      .select('*')
+      .eq('id', uuid)
+      .single();
+
+    return { user };
+  } else {
+    return { user: null };
+  }
 };
 
 export const getuuid = async () => {
