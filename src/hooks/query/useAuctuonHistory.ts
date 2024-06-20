@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   getAuctionHistory,
   getOneAuctionHistory,
@@ -5,6 +6,7 @@ import {
   InsertAuctionHistoryData,
 } from '../../api/auctionHistory';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { detailFormattingDate } from '../../libs/date';
 
 export const useGetAuctionHistory = (product_id: number) => {
   const { data, isLoading } = useQuery({
@@ -23,6 +25,22 @@ export const useGetOneAuctionHistory = (product_id: number) => {
   return { data, isLoading };
 };
 
+export const useGetBidHistory = (auction_id: number) => {
+  const { isLoading, data } = useGetOneAuctionHistory(auction_id);
+  const [bidArr, setBidArr] = useState<{ date: string; pay: any }[]>([]);
+
+  useEffect(() => {
+    if (data && data.data) {
+      const formattedData = data.data.map((item) => ({
+        date: detailFormattingDate(item.bid_date),
+        pay: item.bid_amount,
+      }));
+      setBidArr(formattedData);
+    }
+  }, [data]);
+
+  return { isLoading, bidArr };
+};
 export const useInsertAuctionHistory = (product_id: number) => {
   const queryClient = useQueryClient();
 
