@@ -1,35 +1,14 @@
-import React, { PureComponent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { css, styled } from 'styled-components';
 import { formattingDate } from '../../libs/date';
-import { useGetOneAuctionHistory } from '../../hooks/query/useAuctuonHistory';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
+import { useGetBidHistory } from '../../hooks/query/useAuctuonHistory';
+import ProductChart from './ProductChart';
 
 const ProductContent = ({ ...props }) => {
   const { min_price, current_bid, end_date, describe, photo, auction_id } =
     props;
 
-  const { isLoading, data } = useGetOneAuctionHistory(auction_id);
-
-  const [bidArr, setBidArr] = useState<{ date: string; pay: any }[]>([]);
-
-  useEffect(() => {
-    if (data && data.data) {
-      const formattedData = data.data.map((item) => ({
-        date: formattingDate(item.bid_date),
-        pay: item.bid_amount,
-      }));
-      setBidArr(formattedData);
-    }
-  }, [data]);
+  const { isLoading, bidArr } = useGetBidHistory(auction_id);
 
   return (
     <Container>
@@ -57,19 +36,7 @@ const ProductContent = ({ ...props }) => {
         <span>{end_date ? formattingDate(end_date) : 'x'}</span>
       </NowPrice>
       <ItemInfo>{describe}</ItemInfo>
-      <LineChart width={360} height={300} data={bidArr}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="date" />
-        <YAxis dataKey="pay" />
-        <Tooltip />
-        <Legend />
-        <Line
-          type="monotone"
-          dataKey="pay"
-          stroke="#8884d8"
-          activeDot={{ r: 8 }}
-        />
-      </LineChart>
+      <ProductChart data={bidArr} />
     </Container>
   );
 };
