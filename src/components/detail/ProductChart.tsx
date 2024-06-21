@@ -12,7 +12,7 @@ import styled from 'styled-components';
 
 const ProductChart = ({ data }: any) => {
   return (
-    <LineChart width={390} height={300} data={data}>
+    <LineChart width={360} height={300} data={data}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="date" />
       <YAxis dataKey="pay" />
