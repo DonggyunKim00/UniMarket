@@ -16,7 +16,7 @@ const BidButton = ({ ...props }) => {
   } = props;
 
   const { inputMoney, setMoneyPrompt, setInputMoney } = usePromptPay();
-  const { mutate } = useInsertAuctionHistory(product_id);
+  const { mutate } = useInsertAuctionHistory(product_id, auction_id);
   const { date } = getNow();
 
   useEffect(() => {
