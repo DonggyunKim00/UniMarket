@@ -26,22 +26,23 @@ export const useGetOneAuctionHistory = (product_id: number) => {
 };
 
 export const useGetBidHistory = (auction_id: number) => {
-  const { isLoading, data } = useGetOneAuctionHistory(auction_id);
-  const [bidArr, setBidArr] = useState<{ date: string; pay: any }[]>([]);
-
-  useEffect(() => {
-    if (data && data.data) {
-      const formattedData = data.data.map((item) => ({
+  const { data, isLoading } = useQuery({
+    queryKey: ['one_auction_history', auction_id],
+    queryFn: () => getOneAuctionHistory(auction_id),
+    select: (data) =>
+      data?.data?.map((item) => ({
         date: detailFormattingDate(item.bid_date),
         pay: item.bid_amount,
-      }));
-      setBidArr(formattedData);
-    }
-  }, [data]);
+      })) || [],
+  });
 
-  return { isLoading, bidArr };
+  return { isLoading, bidArr: data };
 };
-export const useInsertAuctionHistory = (product_id: number) => {
+
+export const useInsertAuctionHistory = (
+  product_id: number,
+  auction_id: number,
+) => {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -55,6 +56,9 @@ export const useInsertAuctionHistory = (product_id: number) => {
       insertAuctionHistory({ bid_amount, bid_date, bidder_id, auction_id }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['detailInfo', product_id] });
+      queryClient.invalidateQueries({
+        queryKey: ['one_auction_history', auction_id],
+      });
       alert('입찰 완료되었습니다.');
     },
     onError: () => {
