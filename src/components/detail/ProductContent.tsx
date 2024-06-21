@@ -2,15 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { css, styled } from 'styled-components';
 import { formattingDate } from '../../libs/date';
 import { useGetBidHistory } from '../../hooks/query/useAuctuonHistory';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from 'recharts';
 import ProductChart from './ProductChart';
 
 const ProductContent = ({ ...props }) => {
@@ -18,6 +9,7 @@ const ProductContent = ({ ...props }) => {
     props;
 
   const { isLoading, bidArr } = useGetBidHistory(auction_id);
+
   return (
     <Container>
       {photo ? (
