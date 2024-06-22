@@ -6,7 +6,7 @@ const ToggleButton = ({ ...props }) => {
       {props.isOn === false ? (
         <span className="OFF">경매 전</span>
       ) : (
-        <span className="ON">경매 중</span>
+        <span className="ON">경매 후</span>
       )}
       <ToggleContainer onClick={() => props.setisOn((prev: boolean) => !prev)}>
         <div

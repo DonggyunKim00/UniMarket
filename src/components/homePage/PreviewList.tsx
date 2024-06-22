@@ -14,7 +14,7 @@ const PreviewList = ({ data, state }: any) => {
   return (
     <Wrapper>
       <MenuLine>
-        <SellState>{state ? '경매전' : '경매중'}</SellState>
+        <SellState>{state ? '경매 전' : '경매 후'}</SellState>
         <DetailBtn onClick={() => navigate('/list')}>
           더보기
           <ArrowForwardIosIcon />
@@ -44,7 +44,7 @@ const PreviewList = ({ data, state }: any) => {
               )}
               {state ? null : (
                 <ItemEndDate>
-                  낙찰 예정시간: {formattingDate(item.end_date)}
+                  낙찰 예정시간: <span>{formattingDate(item.end_date)}</span>
                 </ItemEndDate>
               )}
             </DetailBox>
@@ -93,28 +93,29 @@ const ListBox = styled.div`
   min-height: 350px;
 `;
 const ItemBox = styled.div`
-  width: 90%;
   background-color: #e9eef3;
   border-radius: 20px;
-  padding: 10px;
   display: flex;
-  min-height: 120px;
   align-items: center;
-  cursor: pointer;
+  padding: 10px;
+  width: 90%;
+  gap: 5px;
 `;
 const ItemDetail = styled.div`
+  text-overflow: ellipsis;
   overflow: hidden;
   overflow-y: hidden;
   height: 20px;
 `;
 const ItemEndDate = styled.div`
-  height: 20px;
-  overflow: visible;
+  display: flex;
+  flex-direction: column;
 `;
 const DetailBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 200px;
+  gap: 2px;
 `;
 const Image = styled.div`
   display: flex;
