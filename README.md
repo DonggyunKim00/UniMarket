@@ -26,7 +26,6 @@
   <div markdown="1">
     <ul>
       <li>물품 등록 기능</li>
-
       <li>경매 참여 기능</li>
       <li>페이 기능</li>
       <li>판매 품목, 구매 목록 조회 기능</li>
@@ -81,11 +80,11 @@ https://www.figma.com/file/E0db3V0VTsbPCYT1Os1MIG/%EC%9C%A0%EB%8B%88%EB%A7%88%EC
 
 ## 🧬 ERD 구조
 
-설계중..
+<img width="770" alt="스크린샷 2024-06-12 오후 9 51 51" src="https://github.com/potato-club/UniMarket/assets/110156792/1c01e9c1-4999-45a2-b88b-bafaf9e01435">
 
 ## 🏗️ 폴더 구조
 
-<img width="160" alt="스크린샷 2024-05-03 오후 3 43 21" src="https://github.com/DonggyunKim00/UniMarket/assets/110156792/f31c4aec-f3ad-4805-bc03-dff2b34c2f7b">
+<img width="180" alt="스크린샷 2024-06-12 오후 9 54 36" src="https://github.com/potato-club/UniMarket/assets/110156792/dda0899b-72c9-4617-b876-5be0f90626c7">
 
 - public : 정적 파일(이미지,svg) 등을 모아둔 폴더
 - api : DB의 실질적인 데이터를 가져오는 폴더
