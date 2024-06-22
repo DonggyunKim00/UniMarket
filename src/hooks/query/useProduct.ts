@@ -86,6 +86,9 @@ export const useUpdateDeleted = () => {
   const { mutate } = useMutation({
     mutationKey: ['productList'],
     mutationFn: (id: number) => updateDeletedProduct(id),
+    onSuccess: () => {
+      window.location.reload();
+    },
   });
 
   return { mutate };
