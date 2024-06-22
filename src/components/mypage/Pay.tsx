@@ -1,31 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { styled } from 'styled-components';
 import { Button } from '@mui/material';
 import divideNum from '../../libs/divideNum';
+import { usePromptPay, useUpdatePay } from '../../hooks/query/usePay';
 
-const Pay = () => {
-  const [money, setMoney] = useState(0);
+const Pay = ({ money }: { money: number }) => {
+  const { inputMoney, setMoneyPrompt } = usePromptPay();
+  const { payChargeMutate } = useUpdatePay(inputMoney);
 
   useEffect(() => {
-    if (money.toString() === 'NaN') {
-      setMoney(0);
-      alert('숫자만 입력해주세요');
+    if (inputMoney) {
+      payChargeMutate();
     }
-  }, [money]);
+  }, [inputMoney]);
 
   return (
     <Container>
       <Header>
-        <Box />
+        <img src="./UniLogo.png" width={20} height={20} alt="" />
         UniPay
       </Header>
-      <Content>{divideNum(',', 20000000)} 원</Content>
+      <Content>{divideNum(money)} 원</Content>
       <Button
         variant="contained"
         sx={{ fontSize: '16px', fontWeight: 700 }}
-        onClick={() =>
-          setMoney(Number(prompt('충전할 금액을 입력해주세요.', '0')))
-        }
+        onClick={setMoneyPrompt}
       >
         충전
       </Button>
@@ -44,7 +43,6 @@ const Container = styled.div`
   padding: 10px 20px;
   height: 143px;
   background-color: #1a1a1a;
-  margin: 30px;
   color: white;
   border-radius: 10px;
 `;
@@ -53,11 +51,6 @@ const Header = styled.div`
   gap: 5px;
   width: 100%;
   font-weight: 500;
-`;
-const Box = styled.div`
-  width: 20px;
-  height: 20px;
-  background-color: beige;
 `;
 const Content = styled.div`
   font-size: 25px;

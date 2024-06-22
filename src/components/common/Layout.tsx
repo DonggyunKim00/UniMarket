@@ -15,7 +15,8 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   background-color: black;
-  height: 100vh;
+  min-height: 100vh;
+  position: relative;
 `;
 const Wrapper = styled.div`
   min-width: 390px;
